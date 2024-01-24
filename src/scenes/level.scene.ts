@@ -2,7 +2,8 @@ import { BoundingBox, Color, Engine, Scene, Vector } from 'excalibur';
 import { Player } from '../actors/player.actor';
 import { assetManager } from '../managers/asset.manager';
 import { NPC } from '../actors/NPC.actor';
-import { NPC_TYPE } from '../models';
+import { NPC_TYPE, SCENE_EVENTS } from '../models';
+import { eventBus } from '../managers/game.manager';
 
 export class Level extends Scene {
   name: string;
@@ -64,7 +65,7 @@ export class Level extends Scene {
       y: player_tile.y,
       map_bounds: { right: map_width, bottom: map_height },
     });
-
+    eventBus.emit(SCENE_EVENTS.SWITCH_TOOL, this.player.current_tool);
     this.camera.strategy.lockToActor(this.player);
     this.camera.zoom = 2;
     this.camera.strategy.limitCameraBounds(map_bounds);

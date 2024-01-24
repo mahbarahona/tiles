@@ -1,4 +1,4 @@
-import { Color, ImageFiltering, ImageSource, Loader } from 'excalibur';
+import { ImageFiltering, ImageSource, Loader } from 'excalibur';
 import { TiledMapResource } from '@excaliburjs/plugin-tiled';
 
 class AssetManager {
@@ -38,8 +38,8 @@ class AssetManager {
     };
 
     this.maps = {
-      '002': new TiledMapResource('/bunny/002.tmx'),
       '003': new TiledMapResource('/bunny/003.tmx'),
+      mainmenu: new TiledMapResource('/bunny/mainmenu.tmx'),
     };
 
     this.sounds = {};

@@ -1,16 +1,18 @@
 import { Level } from '../scenes/level.scene';
+import { mainMenu } from '../scenes/main.scene';
 
 class LevelManager {
   levels_config!: any[];
-  levels: Level[] = [];
-  first_level!: string;
+  levels: Level[] | any[] = [];
+  first_level: any;
   current!: Level;
   constructor(levels_config: any[]) {
     this.levels_config = levels_config;
   }
   init() {
+    this.first_level = mainMenu;
+    this.levels.push(this.first_level);
     this.levels_config.forEach((config) => this.levels.push(new Level(config)));
-    this.first_level = this.levels[0].name;
   }
 }
 const levels_config = [

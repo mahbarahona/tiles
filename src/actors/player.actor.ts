@@ -9,6 +9,8 @@ import {
   vec,
 } from 'excalibur';
 import { assetManager } from '../managers/asset.manager';
+import { eventBus } from '../managers/game.manager';
+import { SCENE_EVENTS, player_tools } from '../models';
 
 const ANIM = {
   IDLE_FRONT: 'IDLE_FRONT',
@@ -197,14 +199,13 @@ enum FACING {
   RIGHT = 'RIGHT',
 }
 export class Player extends Actor {
-  public health: number = 20;
   private current_anim: any;
   private facing!: FACING;
   private map_bounds: any;
-  public current_tool =
-    'axe' || 'wateringcan' || 'axe' || 'pickaxe' || 'shovel' || '';
   public in_action = false;
 
+  public current_tool =
+    'axe' || 'wateringcan' || 'axe' || 'pickaxe' || 'shovel' || '';
   constructor({ x, y, map_bounds }: any) {
     if (player_instance) {
       return player_instance;
@@ -222,7 +223,7 @@ export class Player extends Actor {
     this.facing = FACING.FRONT;
     this.scale = vec(0.8, 0.8);
     this.map_bounds = map_bounds;
-    this.current_tool = 'axe';
+    this.current_tool = 'wateringcan';
     player_instance = this;
   }
   onInitialize(): void {
@@ -240,27 +241,30 @@ export class Player extends Actor {
       this.vel.y = 0;
       return;
     }
-    this.update_movement(engine);
+
     const keyboard = engine.input.keyboard;
+    const change_tool =
+      keyboard.wasReleased(Input.Keys.Q) ||
+      keyboard.wasReleased(Input.Keys.E) ||
+      keyboard.wasReleased(Input.Keys.T) ||
+      keyboard.wasReleased(Input.Keys.F);
+    if (change_tool) {
+      let nextIndex = player_tools.indexOf(this.current_tool) + 1;
+      if (!player_tools[nextIndex]) {
+        nextIndex = 0;
+      }
+      const next = player_tools[nextIndex];
+      this.current_tool = next;
+      eventBus.emit(SCENE_EVENTS.SWITCH_TOOL, this.current_tool);
+    }
+
+    this.update_movement(engine);
     const prev_anim = this.current_anim;
 
     if (keyboard.wasReleased(Input.Keys.Space)) {
       this.in_action = true;
 
       switch (this.current_tool) {
-        case 'shovel':
-          if (this.current_anim === ANIM.WALK_BACK) {
-            this.set_anim(ANIM.SHOVEL_BACK);
-          } else {
-            this.set_anim(ANIM.SHOVEL_FRONT);
-          }
-
-          setTimeout(() => {
-            this.set_anim(prev_anim);
-            this.in_action = false;
-          }, 300 * 4);
-          break;
-
         case 'axe':
           switch (this.facing) {
             case FACING.BACK:
@@ -277,10 +281,6 @@ export class Player extends Actor {
             case FACING.RIGHT:
               this.set_anim(ANIM.AXE_RIGHT);
               break;
-            default:
-              console.warn(this.current_anim);
-              console.log(this.graphics.getNames());
-              break;
           }
 
           setTimeout(() => {
@@ -288,23 +288,21 @@ export class Player extends Actor {
             this.in_action = false;
           }, 300 * 4);
           break;
-
         case 'wateringcan':
-          switch (this.current_anim) {
-            case ANIM.WALK_BACK:
+          switch (this.facing) {
+            case FACING.BACK:
               this.set_anim(ANIM.WATERING_CAN_BACK);
               break;
-            case ANIM.WALK_FRONT:
+            case FACING.FRONT:
               this.set_anim(ANIM.WATERING_CAN_FRONT);
               break;
-            case ANIM.WALK_LEFT:
+
+            case FACING.LEFT:
               this.set_anim(ANIM.WATERING_CAN_LEFT);
               break;
-            case ANIM.WALK_RIGHT:
+
+            case FACING.RIGHT:
               this.set_anim(ANIM.WATERING_CAN_RIGHT);
-              break;
-            default:
-              console.warn(this.current_anim);
               break;
           }
 
@@ -360,6 +358,14 @@ export class Player extends Actor {
   update_movement(engine: Engine) {
     const keyboard = engine.input.keyboard;
     const WALKING_SPEED = 100; // 160
+    const isLEFT =
+      keyboard.isHeld(Input.Keys.Left) || keyboard.isHeld(Input.Keys.A);
+    const isRIGHT =
+      keyboard.isHeld(Input.Keys.Right) || keyboard.isHeld(Input.Keys.D);
+    const isUP =
+      keyboard.isHeld(Input.Keys.Up) || keyboard.isHeld(Input.Keys.W);
+    const isDOWN =
+      keyboard.isHeld(Input.Keys.Down) || keyboard.isHeld(Input.Keys.S);
     const hit_bounds = {
       left: this.pos.x < 0 + this.width / 2,
       top: this.pos.y < 0 + this.height / 2,
@@ -368,19 +374,19 @@ export class Player extends Actor {
     };
     this.vel.x = 0;
     this.vel.y = 0;
-    if (keyboard.isHeld(Input.Keys.Left) && !hit_bounds.left) {
+    if (isLEFT && !hit_bounds.left) {
       this.vel.x = -1;
       this.facing = FACING.LEFT;
     }
-    if (keyboard.isHeld(Input.Keys.Right) && !hit_bounds.right) {
+    if (isRIGHT && !hit_bounds.right) {
       this.vel.x = 1;
       this.facing = FACING.RIGHT;
     }
-    if (keyboard.isHeld(Input.Keys.Up) && !hit_bounds.top) {
+    if (isUP && !hit_bounds.top) {
       this.vel.y = -1;
       this.facing = FACING.BACK;
     }
-    if (keyboard.isHeld(Input.Keys.Down) && !hit_bounds.bottom) {
+    if (isDOWN && !hit_bounds.bottom) {
       this.vel.y = 1;
       this.facing = FACING.FRONT;
     }

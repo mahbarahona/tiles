@@ -8,6 +8,8 @@
   --bg-color: #edf2f7;
   --text-color: rgb(42, 41, 41);
   --border-radius: 10px;
+  --cursor: url('/assets/ui/Mouse sprites/Triangle Mouse icon 1.png'), auto;
+
   /* --border-radius: 100% 100%; */
 }
 html,
@@ -44,8 +46,8 @@ body {
 
   #main-canvas {
     border-radius: var(--border-radius);
-    border: 2px solid #333;
     border: 3px solid #333;
+    cursor: var(--cursor);
   }
 
   #ui {
@@ -60,31 +62,22 @@ body {
     align-items: center;
     justify-content: center;
 
+    cursor: var(--cursor);
     button {
-      /* width: 200px;
-      height: 56px; */
-      /* border: 3px solid black; */
-      cursor: pointer;
-      /* border-radius: var(--border-radius); */
-      /* transition: all 0.3s ease-in-out; */
-      font-weight: bold;
+      cursor: var(--cursor);
+    }
 
-      /* &:active {
-        transform: scale(0.98);
-      } */
-
-      &.play {
-        background-color: #2085d1;
-      }
-      &.retry {
-        background-color: #6f7378;
-      }
-      &.next-level {
-        background-color: #20d199;
-      }
-      &.restart {
-        background-color: #8420d1;
-      }
+    &.play {
+      background-color: #2085d1;
+    }
+    &.retry {
+      background-color: #6f7378;
+    }
+    &.next-level {
+      background-color: #20d199;
+    }
+    &.restart {
+      background-color: #8420d1;
     }
 
     .btn_play {
@@ -102,83 +95,10 @@ body {
       }
     }
 
-    .tools {
-      position: absolute;
-      bottom: -4.5rem;
-      bottom: 0.1rem;
-      left: 0;
-      width: 100%;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      /* gap: 1rem; */
-      /* opacity: 0.7; */
-
-      /* background-color: #6b4b5b; */
-      /* height: 64px; */
-      /* padding: 1rem; */
-
-      .tool {
-        width: 32px;
-        height: 32px;
-        background-color: transparent;
-        /* background-image: url('/assets/ui/buttons/Square Buttons 26x26.png');
-        background-repeat: no-repeat;
-
-        background-position: -8px -8px; */
-        /* border: 1px solid; */
-        /* transform: scale(1); */
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        filter: grayscale(1);
-        opacity: 0.7;
-        &.active {
-          background-position: -8px -56px;
-          opacity: 1;
-          filter: grayscale(0);
-        }
-        > div {
-          width: 100%;
-          height: 100%;
-          transform: scale(1.2);
-        }
-        .wateringcan {
-          background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
-          background-repeat: no-repeat;
-
-          background-position: -670px 0px;
-        }
-
-        .axe {
-          background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
-          background-repeat: no-repeat;
-
-          background-position: -610px -32px;
-        }
-        .pickaxe {
-          background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
-          background-repeat: no-repeat;
-          background-position: -644px 0px;
-        }
-      }
-    }
-
-    .ready-container {
+    .main_menu {
       display: none;
     }
-    .playing-container {
-      display: none;
-    }
-    .gameover-container {
-      display: none;
-    }
-    .completed-container {
-      display: none;
-    }
-    .done-container {
+    .playing {
       display: none;
     }
   }
@@ -191,7 +111,7 @@ body {
   }
   &.SCENE_STATE__READY {
     #ui {
-      .ready-container {
+      .main_menu {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -205,89 +125,95 @@ body {
       display: flex;
       pointer-events: none;
       background-color: transparent;
-      .playing-container {
-        position: absolute;
-        color: whitesmoke;
-        /* background-color: whitesmoke; */
-        top: 1rem;
-        left: 2rem;
-        width: 90%;
 
+      .playing {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
 
-        gap: 1rem;
+        .header {
+          width: 100%;
+          height: 64px;
+          position: absolute;
+          top: 1rem;
+          left: 1rem;
+          .avatar {
+            background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
+            background-repeat: no-repeat;
+            background-position: -200px -8px;
 
-        .center {
-          text-align: center;
+            width: 32px;
+            height: 32px;
+            transform: scale(1.8);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .bunny {
+              background-image: url('/assets/ui/Dialouge UI/Emotes/Teemo Basic emote animations sprite sheet.png');
+              background-repeat: no-repeat;
+              background-position: 0px -64px;
+              width: 32px;
+              height: 32px;
+              transform: scale(0.5);
+            }
+          }
         }
-        .right {
-          text-align: right;
+        .tools {
+          position: absolute;
+          bottom: -4.5rem;
+          bottom: 0.1rem;
+          left: 0;
+          width: 100%;
+          height: 64px;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+          .tool {
+            width: 24px;
+            height: 24px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /* border: 1px solid; */
+
+            filter: grayscale(1);
+            opacity: 0.7;
+
+            transform: scale(1.2);
+            &.active {
+              background-position: -8px -56px;
+              opacity: 1;
+              filter: grayscale(0);
+            }
+            > div {
+              width: 30px;
+              height: 30px;
+              /* transform: scale(1.2); */
+            }
+            .wateringcan {
+              background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
+              background-repeat: no-repeat;
+
+              background-position: -677px 0px;
+            }
+
+            .axe {
+              background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
+              background-repeat: no-repeat;
+
+              background-position: -613px -32px;
+            }
+            .pickaxe {
+              background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
+              background-repeat: no-repeat;
+              background-position: -645px 0px;
+            }
+          }
         }
       }
     }
-
-    /* #main-canvas {
-      cursor: e-resize;
-    } */
-  }
-  &.SCENE_STATE__COMPLETED {
-    #ui {
-      display: flex;
-
-      .completed-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-
-        transition: all 0.3s ease-in-out;
-      }
-    }
-  }
-  &.SCENE_STATE__GAMEOVER {
-    #ui {
-      display: flex;
-      .gameover-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        transition: all 0.3s ease-in-out;
-      }
-    }
-  }
-  &.DONE {
-    #ui {
-      display: flex;
-
-      width: 90%;
-      background-color: whitesmoke;
-
-      .done-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 1rem;
-
-        button {
-          height: 56px;
-        }
-      }
-    }
-  }
-}
-
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
   }
 }
