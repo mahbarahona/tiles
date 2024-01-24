@@ -1,4 +1,4 @@
-import { ImageFiltering, ImageSource, Loader } from 'excalibur';
+import { Color, ImageFiltering, ImageSource, Loader } from 'excalibur';
 import { TiledMapResource } from '@excaliburjs/plugin-tiled';
 
 class AssetManager {
@@ -11,7 +11,7 @@ class AssetManager {
   init() {
     this.loader = new Loader();
     this.loader.suppressPlayButton = true;
-    this.loader.backgroundColor = 'black';
+    this.loader.backgroundColor = Color.fromHex('#87a894').toString();
     //
     this.images = {
       character: new ImageSource(
@@ -21,6 +21,16 @@ class AssetManager {
       ),
       character_actions: new ImageSource(
         '/assets/Basic Charakter Actions.png',
+        false,
+        ImageFiltering.Pixel
+      ),
+      chicken: new ImageSource(
+        '/assets/Free Chicken Sprites.png',
+        false,
+        ImageFiltering.Pixel
+      ),
+      cow: new ImageSource(
+        '/assets/Free Cow Sprites.png',
         false,
         ImageFiltering.Pixel
       ),

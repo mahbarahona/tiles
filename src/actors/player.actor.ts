@@ -7,6 +7,7 @@ import {
   Input,
   SpriteSheet,
   range,
+  vec,
 } from 'excalibur';
 import { assetManager } from '../managers/asset.manager';
 
@@ -219,6 +220,7 @@ export class Player extends Actor {
       z: 100,
     });
     this.facing = FACING.FRONT;
+    this.scale = vec(0.8, 0.8);
     player_instance = this;
   }
   onInitialize(): void {
