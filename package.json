@@ -8,8 +8,14 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm lint"
+    }
+  },
   "devDependencies": {
     "@excaliburjs/dev-tools": "^0.28.0",
+    "husky": "^8.0.3",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   },
