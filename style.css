@@ -6,7 +6,8 @@
   --color-primary: #2085d1;
   --bg-color: #edf2f7;
   --text-color: rgb(42, 41, 41);
-  --border-radius: 16px/44px;
+  --border-radius: 10px;
+  /* --border-radius: 100% 100%; */
 }
 html,
 body {
@@ -24,15 +25,25 @@ body {
   flex-direction: column;
   gap: 1rem;
 
-  background-color: var(--bg-color);
-  opacity: 0.8;
+  /* background-color: var(--bg-color); */
+  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  /* opacity: 0.8; */
   background-image: radial-gradient(
     var(--color-primary) 0.5px,
     var(--bg-color) 0.5px
   );
   background-size: 10px 10px;
+  /* background: linear-gradient(145deg, #cacaca, #f0f0f0); */
 }
+.shadow {
+  /* border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff; */
 
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: 18px 25px 0px #333, 21px -4px 62px #ffffff;
+}
 #game {
   display: flex;
   align-items: center;
@@ -42,7 +53,8 @@ body {
 
   #main-canvas {
     border-radius: var(--border-radius);
-    border: 3px solid;
+    border: 2px solid #333;
+    border: 3px solid #333;
   }
 
   #ui {
