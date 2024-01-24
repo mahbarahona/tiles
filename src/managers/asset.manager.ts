@@ -11,7 +11,8 @@ class AssetManager {
   init() {
     this.loader = new Loader();
     this.loader.suppressPlayButton = true;
-    this.loader.backgroundColor = Color.fromHex('#87a894').toString();
+    // this.loader.backgroundColor = Color.fromHex('#87a894').toString();
+    // this.loader.backgroundColor = Color.fromHex('#87a894').toString();
     //
     this.images = {
       character: new ImageSource(

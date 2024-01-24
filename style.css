@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 :root {
   --color-primary: #2085d1;
@@ -25,25 +26,15 @@ body {
   flex-direction: column;
   gap: 1rem;
 
-  /* background-color: var(--bg-color); */
   background: linear-gradient(145deg, #cacaca, #f0f0f0);
-  /* opacity: 0.8; */
+
   background-image: radial-gradient(
     var(--color-primary) 0.5px,
     var(--bg-color) 0.5px
   );
   background-size: 10px 10px;
-  /* background: linear-gradient(145deg, #cacaca, #f0f0f0); */
 }
-.shadow {
-  /* border-radius: 50px;
-  background: #e0e0e0;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff; */
 
-  border-radius: 50px;
-  background: #e0e0e0;
-  box-shadow: 18px 25px 0px #333, 21px -4px 62px #ffffff;
-}
 #game {
   display: flex;
   align-items: center;
@@ -59,7 +50,7 @@ body {
 
   #ui {
     position: absolute;
-    background-color: rgba(42, 41, 41, 0.3);
+    /* background-color: rgba(42, 41, 41, 0.3); */
     width: 100%;
     height: 100%;
     width: 600px;
@@ -70,17 +61,17 @@ body {
     justify-content: center;
 
     button {
-      width: 200px;
-      height: 56px;
-      border: 3px solid black;
+      /* width: 200px;
+      height: 56px; */
+      /* border: 3px solid black; */
       cursor: pointer;
-      border-radius: var(--border-radius);
-      transition: all 0.3s ease-in-out;
+      /* border-radius: var(--border-radius); */
+      /* transition: all 0.3s ease-in-out; */
       font-weight: bold;
 
-      &:active {
+      /* &:active {
         transform: scale(0.98);
-      }
+      } */
 
       &.play {
         background-color: #2085d1;
@@ -95,6 +86,86 @@ body {
         background-color: #8420d1;
       }
     }
+
+    .btn_play {
+      border: none;
+      background-color: transparent;
+      background-image: url('/assets/ui/UIBigPlayButton.png');
+      background-position: 0px -32px;
+      transform: scale(2);
+      background-repeat: no-repeat;
+      width: 96px;
+      height: 32px;
+
+      &:active {
+        background-position: -96px -32px;
+      }
+    }
+
+    .tools {
+      position: absolute;
+      bottom: -4.5rem;
+      bottom: 0.1rem;
+      left: 0;
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* gap: 1rem; */
+      /* opacity: 0.7; */
+
+      /* background-color: #6b4b5b; */
+      /* height: 64px; */
+      /* padding: 1rem; */
+
+      .tool {
+        width: 32px;
+        height: 32px;
+        background-color: transparent;
+        /* background-image: url('/assets/ui/buttons/Square Buttons 26x26.png');
+        background-repeat: no-repeat;
+
+        background-position: -8px -8px; */
+        /* border: 1px solid; */
+        /* transform: scale(1); */
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        filter: grayscale(1);
+        opacity: 0.7;
+        &.active {
+          background-position: -8px -56px;
+          opacity: 1;
+          filter: grayscale(0);
+        }
+        > div {
+          width: 100%;
+          height: 100%;
+          transform: scale(1.2);
+        }
+        .wateringcan {
+          background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
+          background-repeat: no-repeat;
+
+          background-position: -670px 0px;
+        }
+
+        .axe {
+          background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
+          background-repeat: no-repeat;
+
+          background-position: -610px -32px;
+        }
+        .pickaxe {
+          background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
+          background-repeat: no-repeat;
+          background-position: -644px 0px;
+        }
+      }
+    }
+
     .ready-container {
       display: none;
     }

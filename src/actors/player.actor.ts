@@ -202,7 +202,7 @@ export class Player extends Actor {
   private facing!: FACING;
   private map_bounds: any;
   public current_tool =
-    'axe' || 'wateringcan' || 'axe' || 'pickaxe' || 'shovel';
+    'axe' || 'wateringcan' || 'axe' || 'pickaxe' || 'shovel' || '';
   public in_action = false;
 
   constructor({ x, y, map_bounds }: any) {
@@ -222,6 +222,7 @@ export class Player extends Actor {
     this.facing = FACING.FRONT;
     this.scale = vec(0.8, 0.8);
     this.map_bounds = map_bounds;
+    this.current_tool = 'axe';
     player_instance = this;
   }
   onInitialize(): void {
@@ -234,7 +235,11 @@ export class Player extends Actor {
   }
 
   onPreUpdate(engine: Engine): void {
-    if (this.in_action) return;
+    if (this.in_action) {
+      this.vel.x = 0;
+      this.vel.y = 0;
+      return;
+    }
     this.update_movement(engine);
     const keyboard = engine.input.keyboard;
     const prev_anim = this.current_anim;
