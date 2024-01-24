@@ -1,11 +1,4 @@
-import {
-  Actor,
-  Animation,
-  CollisionType,
-  Engine,
-  SpriteSheet,
-  range,
-} from 'excalibur';
+import { Actor, Animation, CollisionType, SpriteSheet, range } from 'excalibur';
 import { NPC_TYPE } from '../models';
 import { assetManager } from '../managers/asset.manager';
 
@@ -20,7 +13,7 @@ enum COW_ANIM {
 
 export class NPC extends Actor {
   type: NPC_TYPE;
-  constructor({ x, y, width, height, type, color }: any) {
+  constructor({ x, y, width, height, type }: any) {
     super({
       x,
       y,
@@ -31,7 +24,7 @@ export class NPC extends Actor {
     });
     this.type = type;
   }
-  onInitialize(engine: Engine): void {
+  onInitialize(): void {
     switch (this.type) {
       case NPC_TYPE.CHICKEN:
         const chicken_sprite = SpriteSheet.fromImageSource({

@@ -1,4 +1,4 @@
-import { Actor, Color, Engine, Scene } from 'excalibur';
+import { Color, Engine, Scene } from 'excalibur';
 import { Player } from '../actors/player.actor';
 import { assetManager } from '../managers/asset.manager';
 import { NPC } from '../actors/NPC.actor';
