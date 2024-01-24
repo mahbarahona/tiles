@@ -1,4 +1,4 @@
-import { ImageFiltering, ImageSource, Loader } from 'excalibur';
+import { ImageFiltering, ImageSource, Loader, Sound } from 'excalibur';
 import { TiledMapResource } from '@excaliburjs/plugin-tiled';
 
 class AssetManager {
@@ -42,7 +42,9 @@ class AssetManager {
       mainmenu: new TiledMapResource('/bunny/mainmenu.tmx'),
     };
 
-    this.sounds = {};
+    this.sounds = {
+      bg: new Sound('/assets/music/apple_cider.Zane Little Music.ogg'),
+    };
     //
     for (const key in this.images) {
       this.loader.addResource(this.images[key]);

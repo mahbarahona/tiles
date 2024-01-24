@@ -71,5 +71,6 @@ export class Level extends Scene {
     this.camera.strategy.limitCameraBounds(map_bounds);
 
     this.add(this.player);
+    assetManager.sounds.bg.play(0.3);
   }
 }
