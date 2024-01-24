@@ -13,13 +13,13 @@ enum COW_ANIM {
 
 export class NPC extends Actor {
   type: NPC_TYPE;
-  constructor({ x, y, width, height, type }: any) {
+  constructor({ x, y, width, height, type, z }: any) {
     super({
       x,
       y,
       width,
       height,
-      z: 100,
+      z,
       collisionType: CollisionType.Fixed,
     });
     this.type = type;

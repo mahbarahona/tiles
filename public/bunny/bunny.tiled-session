@@ -48,11 +48,11 @@
                 20,
                 19
             ],
-            "scale": 1,
-            "selectedLayer": 0,
+            "scale": 0.75,
+            "selectedLayer": 19,
             "viewCenter": {
-                "x": 693,
-                "y": 285.5
+                "x": 392,
+                "y": 73.99999999999994
             }
         },
         "003.tmx#Basic_Furniture": {
@@ -115,18 +115,52 @@
             "scaleInEditor": 1
         },
         "mainmenu.tmx": {
-            "scale": 1,
-            "selectedLayer": 1,
+            "expandedObjectLayers": [
+                9,
+                8
+            ],
+            "scale": 2,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 448,
-                "y": 318.5
+                "x": 300,
+                "y": 213.75
             }
+        },
+        "mainmenu.tmx#Basic Charakter Spritesheet": {
+            "scaleInDock": 1
+        },
+        "mainmenu.tmx#Basic_Furniture": {
+            "scaleInDock": 4
         },
         "mainmenu.tmx#Basic_Grass_Biom_things": {
             "scaleInDock": 4
         },
+        "mainmenu.tmx#Basic_Plants": {
+            "scaleInDock": 1
+        },
+        "mainmenu.tmx#Fences": {
+            "scaleInDock": 5.5
+        },
+        "mainmenu.tmx#Free Chicken Sprites": {
+            "scaleInDock": 5.5
+        },
+        "mainmenu.tmx#Free Cow Sprites": {
+            "scaleInDock": 1
+        },
+        "mainmenu.tmx#Free_Chicken_House": {
+            "scaleInDock": 1
+        },
         "mainmenu.tmx#Grass": {
             "scaleInDock": 1
+        },
+        "mainmenu.tmx#Hills": {
+            "scaleInDock": 2
+        },
+        "mainmenu.tmx#Tilled_Dirt": {
+            "scaleInDock": 1
+        },
+        "mainmenu.tmx#Wooden House": {
+            "scaleInDock": 3
         }
     },
     "last.exportedFilePath": "C:/Users/manuhb/bunny",

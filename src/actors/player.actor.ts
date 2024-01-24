@@ -215,10 +215,10 @@ export class Player extends Actor {
       name: 'Player',
       x,
       y,
+      z: 10,
       width: 16,
       height: 16,
       collisionType: CollisionType.Active,
-      z: 100,
     });
     this.facing = FACING.FRONT;
     this.scale = vec(0.8, 0.8);

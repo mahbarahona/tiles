@@ -29,9 +29,6 @@ export class Level extends Scene {
       this.map.pos
     );
 
-    const player_layer = this.map.data.getObjectLayerByName('player');
-    const player_tile = player_layer.objects.find((obj: any) => obj.id === 2);
-
     const chicken_layer = this.map.data.getObjectLayerByName('chickens');
     chicken_layer.objects.forEach((mark: any, i: number) => {
       const chicken = new NPC({
@@ -60,6 +57,8 @@ export class Level extends Scene {
       this.add(cow);
     });
 
+    const player_layer = this.map.data.getObjectLayerByName('player');
+    const player_tile = player_layer.objects.find((obj: any) => obj.id === 2);
     this.player = new Player({
       x: player_tile.x,
       y: player_tile.y,
@@ -71,6 +70,8 @@ export class Level extends Scene {
     this.camera.strategy.limitCameraBounds(map_bounds);
 
     this.add(this.player);
+
+    assetManager.sounds.bg.loop = true;
     assetManager.sounds.bg.play(0.3);
   }
 }
