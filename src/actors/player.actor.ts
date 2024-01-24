@@ -221,7 +221,7 @@ export class Player extends Actor {
     this.facing = FACING.FRONT;
     player_instance = this;
   }
-  onInitialize(engine: Engine): void {
+  onInitialize(): void {
     this.set_animations();
     this.set_anim(ANIM.IDLE_FRONT);
   }
