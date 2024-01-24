@@ -1,6 +1,5 @@
 import {
   Actor,
-  ActorArgs,
   Animation,
   CollisionType,
   Engine,
@@ -201,11 +200,12 @@ export class Player extends Actor {
   public health: number = 20;
   private current_anim: any;
   private facing!: FACING;
+  private map_bounds: any;
   public current_tool =
     'axe' || 'wateringcan' || 'axe' || 'pickaxe' || 'shovel';
   public in_action = false;
 
-  constructor({ x, y }: ActorArgs) {
+  constructor({ x, y, map_bounds }: any) {
     if (player_instance) {
       return player_instance;
     }
@@ -221,6 +221,7 @@ export class Player extends Actor {
     });
     this.facing = FACING.FRONT;
     this.scale = vec(0.8, 0.8);
+    this.map_bounds = map_bounds;
     player_instance = this;
   }
   onInitialize(): void {
@@ -354,22 +355,27 @@ export class Player extends Actor {
   update_movement(engine: Engine) {
     const keyboard = engine.input.keyboard;
     const WALKING_SPEED = 100; // 160
-
+    const hit_bounds = {
+      left: this.pos.x < 0 + this.width / 2,
+      top: this.pos.y < 0 + this.height / 2,
+      right: this.pos.x > this.map_bounds.right - this.width / 2,
+      bottom: this.pos.y > this.map_bounds.bottom - this.height / 2,
+    };
     this.vel.x = 0;
     this.vel.y = 0;
-    if (keyboard.isHeld(Input.Keys.Left)) {
+    if (keyboard.isHeld(Input.Keys.Left) && !hit_bounds.left) {
       this.vel.x = -1;
       this.facing = FACING.LEFT;
     }
-    if (keyboard.isHeld(Input.Keys.Right)) {
+    if (keyboard.isHeld(Input.Keys.Right) && !hit_bounds.right) {
       this.vel.x = 1;
       this.facing = FACING.RIGHT;
     }
-    if (keyboard.isHeld(Input.Keys.Up)) {
+    if (keyboard.isHeld(Input.Keys.Up) && !hit_bounds.top) {
       this.vel.y = -1;
       this.facing = FACING.BACK;
     }
-    if (keyboard.isHeld(Input.Keys.Down)) {
+    if (keyboard.isHeld(Input.Keys.Down) && !hit_bounds.bottom) {
       this.vel.y = 1;
       this.facing = FACING.FRONT;
     }
