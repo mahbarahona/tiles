@@ -2,7 +2,7 @@ import { Level } from '../scenes/level.scene';
 
 class LevelManager {
   levels_config!: any[];
-  levels!: Level[];
+  levels: Level[] = [];
   first_level!: string;
   constructor(levels_config: any[]) {
     this.levels_config = levels_config;
