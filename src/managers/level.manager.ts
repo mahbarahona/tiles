@@ -4,6 +4,7 @@ class LevelManager {
   levels_config!: any[];
   levels: Level[] = [];
   first_level!: string;
+  current!: Level;
   constructor(levels_config: any[]) {
     this.levels_config = levels_config;
   }
