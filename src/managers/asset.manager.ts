@@ -43,7 +43,8 @@ class AssetManager {
     };
 
     this.sounds = {
-      bg: new Sound('/assets/music/apple_cider.Zane Little Music.ogg'),
+      '003': new Sound('/assets/music/apple_cider.Zane Little Music.ogg'),
+      mainmenu: new Sound('/assets/music/shepherd_dog.Zane Little Music.wav'),
     };
     //
     for (const key in this.images) {
@@ -55,7 +56,7 @@ class AssetManager {
     for (const key in this.sounds) {
       const sound = this.sounds[key];
       this.loader.addResource(sound);
-      sound.volume = 0.2;
+      sound.volume = 0.1;
     }
   }
 }

@@ -10,7 +10,22 @@
     "file.lastUsedOpenFilter": "Todos los archivos (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 4
+            "scaleInDock": 1
+        },
+        "#Interiors_free_16x16": {
+            "scaleInDock": 3
+        },
+        "#Room_Builder_free_16x16": {
+            "scaleInDock": 3
+        },
+        "#Tilemap_Flat": {
+            "scaleInDock": 3
+        },
+        "#Tiles_FinalLayout": {
+            "scaleInDock": 1.5
+        },
+        "#tilemap_packed": {
+            "scaleInDock": 1.5
         },
         "001.tmx": {
             "scale": 0.9401041666666666,
@@ -49,10 +64,10 @@
                 19
             ],
             "scale": 0.75,
-            "selectedLayer": 19,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 392,
-                "y": 73.99999999999994
+                "x": 373.33333333333337,
+                "y": 23.333333333333258
             }
         },
         "003.tmx#Basic_Furniture": {
@@ -119,11 +134,11 @@
                 9,
                 8
             ],
-            "scale": 2,
+            "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 300,
-                "y": 213.75
+                "x": 329.3333333333333,
+                "y": 202.99999999999997
             }
         },
         "mainmenu.tmx#Basic Charakter Spritesheet": {
@@ -188,6 +203,7 @@
     ],
     "tileset.embedInMap": true,
     "tileset.lastUsedFormat": "tsx",
+    "tileset.spacing": 1,
     "tileset.tileSize": {
         "height": 16,
         "width": 16
