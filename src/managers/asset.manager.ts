@@ -10,10 +10,8 @@ class AssetManager {
   constructor() {}
   init() {
     this.loader = new Loader();
-    this.loader.suppressPlayButton = true;
-    // this.loader.backgroundColor = Color.fromHex('#87a894').toString();
-    // this.loader.backgroundColor = Color.fromHex('#87a894').toString();
-    //
+    // this.loader.suppressPlayButton = true;
+
     this.images = {
       character: new ImageSource(
         '/assets/Basic Charakter Spritesheet.png',

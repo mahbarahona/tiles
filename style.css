@@ -9,8 +9,6 @@
   --text-color: rgb(42, 41, 41);
   --border-radius: 10px;
   --cursor: url('/assets/ui/Mouse sprites/Triangle Mouse icon 1.png'), auto;
-
-  /* --border-radius: 100% 100%; */
 }
 html,
 body {
