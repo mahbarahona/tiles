@@ -34,7 +34,30 @@ body {
   );
   background-size: 10px 10px;
 }
+#credits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  details {
+    width: 630px;
+
+    summary {
+      cursor: pointer;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .type {
+      font-weight: bold;
+    }
+  }
+
+  .row {
+    display: flex;
+    gap: 2rem;
+  }
+}
 #game {
   display: flex;
   align-items: center;
