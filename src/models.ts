@@ -1,4 +1,4 @@
-export const player_tools = ['wateringcan', 'axe'];
+export const PLAYER_TOOLS = ['wateringcan', 'axe'];
 export enum NPC_TYPE {
   COW = 'COW',
   CHICKEN = 'CHICKEN',

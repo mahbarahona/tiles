@@ -19,8 +19,8 @@ const levels_config = [
     map: 'mainmenu',
   },
   {
-    name: '003',
-    map: '003',
+    name: 'town',
+    map: 'town',
   },
 ];
 const levelManager = new LevelManager(levels_config);

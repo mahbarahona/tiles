@@ -8,7 +8,7 @@
   --bg-color: #edf2f7;
   --text-color: rgb(42, 41, 41);
   --border-radius: 10px;
-  --cursor: url('/assets/ui/Mouse sprites/Triangle Mouse icon 1.png'), auto;
+  --cursor: url('/assets/ui/Triangle Mouse icon 1.png'), auto;
 }
 html,
 body {
@@ -169,7 +169,7 @@ body {
             align-items: center;
             justify-content: center;
             .bunny {
-              background-image: url('/assets/ui/Dialouge UI/Emotes/Teemo Basic emote animations sprite sheet.png');
+              background-image: url('/assets/ui/Teemo Basic emote animations sprite sheet.png');
               background-repeat: no-repeat;
               background-position: 0px -64px;
               width: 32px;

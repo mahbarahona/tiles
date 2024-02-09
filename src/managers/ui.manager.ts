@@ -1,4 +1,4 @@
-import { SCENE_STATE, player_tools } from '../models';
+import { SCENE_STATE, PLAYER_TOOLS } from '../models';
 import { gameManager } from './game.manager';
 
 class UIManager {
@@ -19,7 +19,7 @@ class UIManager {
   }
   update_tools(active = '') {
     this.tools_container.innerHTML = '';
-    player_tools.forEach((tool) => {
+    PLAYER_TOOLS.forEach((tool) => {
       const div = document.createElement('div');
       div.classList.add('tool');
       div.innerHTML = `

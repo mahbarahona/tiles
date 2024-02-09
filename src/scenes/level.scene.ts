@@ -1,9 +1,10 @@
 import { BoundingBox, Color, Engine, Scene, Sound, Vector } from 'excalibur';
 import { Player } from '../actors/player.actor';
 import { assetManager } from '../managers/asset.manager';
-import { NPC } from '../actors/NPC.actor';
-import { NPC_TYPE, SCENE_EVENTS } from '../models';
+import {  SCENE_EVENTS } from '../models';
 import { eventBus } from '../managers/game.manager';
+import { Chicken } from '../actors/NPC/chicken.actor';
+import { Cow } from '../actors/NPC/cow.actor';
 
 export class Level extends Scene {
   name: string;
@@ -32,17 +33,19 @@ export class Level extends Scene {
     this.music.loop = true;
     this.music.play();
   }
+  onDeactivate(): void {
+    this.music.stop();
+  }
   private create_chicken(){
     const chicken_layer = this.map.data.getObjectLayerByName('chickens');
     if (chicken_layer) {
       chicken_layer.objects.forEach((mark: any, i: number) => {
-        const chicken = new NPC({
+        const chicken = new Chicken({
           x: mark.x,
           y: mark.y,
           width: 16,
           height: 16,
           color: Color.White,
-          type: NPC_TYPE.CHICKEN,
         });
         chicken.graphics.flipHorizontal = i % 2 === 0;
 
@@ -55,13 +58,13 @@ export class Level extends Scene {
     const cows_layer = this.map.data.getObjectLayerByName('cows');
     if (cows_layer) {
       cows_layer.objects.forEach((mark: any, i: number) => {
-        const cow = new NPC({
+        const cow = new Cow({
           x: mark.x,
           y: mark.y,
           width: 16,
           height: 16,
           color: Color.Chartreuse,
-          type: NPC_TYPE.COW,
+
         });
         cow.graphics.flipHorizontal = i % 2 === 0;
         this.add(cow);
@@ -93,7 +96,5 @@ export class Level extends Scene {
     this.camera.strategy.limitCameraBounds(map_bounds);
     this.camera.zoom = 2;
   }
-  onDeactivate(): void {
-    this.music.stop();
-  }
+
 }

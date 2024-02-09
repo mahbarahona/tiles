@@ -10,7 +10,7 @@ import {
 } from 'excalibur';
 import { assetManager } from '../managers/asset.manager';
 import { eventBus } from '../managers/game.manager';
-import { SCENE_EVENTS, player_tools } from '../models';
+import { SCENE_EVENTS, PLAYER_TOOLS } from '../models';
 
 const ANIM = {
   IDLE_FRONT: 'IDLE_FRONT',
@@ -245,11 +245,11 @@ export class Player extends Actor {
       keyboard.wasReleased(Input.Keys.T) ||
       keyboard.wasReleased(Input.Keys.F);
     if (change_tool) {
-      let nextIndex = player_tools.indexOf(this.current_tool) + 1;
-      if (!player_tools[nextIndex]) {
+      let nextIndex = PLAYER_TOOLS.indexOf(this.current_tool) + 1;
+      if (!PLAYER_TOOLS[nextIndex]) {
         nextIndex = 0;
       }
-      const next = player_tools[nextIndex];
+      const next = PLAYER_TOOLS[nextIndex];
       this.current_tool = next;
       eventBus.emit(SCENE_EVENTS.SWITCH_TOOL, this.current_tool);
     }

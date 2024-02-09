@@ -105,6 +105,7 @@ const options: EngineOptions = {
   height: 400,
   canvasElementId: 'main-canvas',
   backgroundColor: Color.Transparent,
+  // suppressConsoleBootMessage:true
 };
 //
 const game = new Engine(options);
