@@ -44,7 +44,7 @@ export class Cow extends Actor {
     );
     this.graphics.add(COW_ANIM.IDLE, cow_anim_idle);
     this.graphics.add(COW_ANIM.WALK, cow_anim_walk);
-    this.graphics.use(COW_ANIM.WALK);
+    // this.graphics.use(COW_ANIM.WALK);
     this.graphics.use(COW_ANIM.IDLE);
   }
 }

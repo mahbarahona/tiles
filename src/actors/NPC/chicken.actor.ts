@@ -44,7 +44,7 @@ export class Chicken extends Actor {
           );
           this.graphics.add(CHICKEN_ANIM.IDLE, chicken_anim_idle);
           this.graphics.add(CHICKEN_ANIM.WALK, chicken_anim_walk);
-          this.graphics.use(CHICKEN_ANIM.WALK);
+          // this.graphics.use(CHICKEN_ANIM.WALK);
           this.graphics.use(CHICKEN_ANIM.IDLE);
     }
   }

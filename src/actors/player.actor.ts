@@ -11,7 +11,12 @@ import {
 import { assetManager } from '../managers/asset.manager';
 import { eventBus } from '../managers/game.manager';
 import { SCENE_EVENTS, PLAYER_TOOLS } from '../models';
-
+enum FACING {
+  FRONT = 'FRONT',
+  BACK = 'BACK',
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+}
 const ANIM = {
   IDLE_FRONT: 'IDLE_FRONT',
   IDLE_LEFT: 'IDLE_LEFT',
@@ -34,7 +39,6 @@ const ANIM = {
   WATERING_CAN_LEFT: 'WATERING_CAN_LEFT',
   WATERING_CAN_RIGHT: 'WATERING_CAN_RIGHT',
 };
-
 function get_animations() {
   // sprites
   const sprite_movements = SpriteSheet.fromImageSource({
@@ -191,18 +195,13 @@ function get_animations() {
   };
 }
 
-enum FACING {
-  FRONT = 'FRONT',
-  BACK = 'BACK',
-  LEFT = 'LEFT',
-  RIGHT = 'RIGHT',
-}
+
 export class Player extends Actor {
   private current_anim: any;
   private facing!: FACING;
   private map_bounds: any;
   public in_action = false;
-
+  walking_speed = 100;
   public current_tool =
     'axe' || 'wateringcan' || 'axe' || 'pickaxe' || 'shovel' || '';
   constructor({ x, y,z, map_bounds }: any) {
@@ -226,18 +225,13 @@ export class Player extends Actor {
     this.set_animations();
     this.set_anim(ANIM.IDLE_FRONT);
   }
-  set_anim(new_anim: any) {
-    this.current_anim = new_anim;
-    this.graphics.use(new_anim);
-  }
-
   onPreUpdate(engine: Engine): void {
     if (this.in_action) {
       this.vel.x = 0;
       this.vel.y = 0;
       return;
     }
-
+    //
     const keyboard = engine.input.keyboard;
     const change_tool =
       keyboard.wasReleased(Input.Keys.Q) ||
@@ -310,8 +304,11 @@ export class Player extends Actor {
       }
     }
   }
-
-  set_animations() {
+  private set_anim(new_anim: any) {
+    this.current_anim = new_anim;
+    this.graphics.use(new_anim);
+  }
+  private set_animations() {
     const animations = get_animations();
     this.graphics.add(ANIM.IDLE_FRONT, animations.anim_idle_front);
     this.graphics.add(ANIM.IDLE_BACK, animations.anim_idle_back);
@@ -351,9 +348,8 @@ export class Player extends Actor {
       animations.anim_watering_can_right
     );
   }
-  update_movement(engine: Engine) {
+  private update_movement(engine: Engine) {
     const keyboard = engine.input.keyboard;
-    const WALKING_SPEED = 100; // 160
     const isLEFT =
       keyboard.isHeld(Input.Keys.Left) || keyboard.isHeld(Input.Keys.A);
     const isRIGHT =
@@ -388,10 +384,11 @@ export class Player extends Actor {
     }
 
     // Normalize walking speed
-    if (this.vel.x !== 0 || this.vel.y !== 0) {
-      this.vel = this.vel.normalize();
-      this.vel.x = this.vel.x * WALKING_SPEED;
-      this.vel.y = this.vel.y * WALKING_SPEED;
+    const is_moving = this.vel.x !== 0 || this.vel.y !== 0
+    if (is_moving) {
+      this.vel = this.vel.normalize();// to normalize diagonal movement speeds
+      this.vel.x = this.vel.x * this.walking_speed;
+      this.vel.y = this.vel.y * this.walking_speed;
       switch (this.facing) {
         case FACING.LEFT:
           this.graphics.use(ANIM.WALK_LEFT);
