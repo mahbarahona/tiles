@@ -22,3 +22,13 @@ export enum SCENE_STATE {
 export enum SCENE_EVENTS {
   SWITCH_TOOL = 'GAME_EVENTS__SWITCH_TOOL',
 }
+
+export enum MAPS{
+  MAIN_MENU = 'main_menu',
+  TOWN = 'town',
+}
+export enum SONGS{
+  APPLE_CIDER='apple_cider',
+  SHEPPER_DOG='shepherd_dog',
+
+}

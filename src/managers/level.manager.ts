@@ -1,3 +1,4 @@
+import { MAPS, SONGS } from '../models';
 import { Level } from '../scenes/level.scene';
 
 class LevelManager {
@@ -15,12 +16,14 @@ class LevelManager {
 }
 const levels_config = [
   {
-    name: 'mainmenu',
-    map: 'mainmenu',
+    name: 'Main Menu',
+    map: MAPS.MAIN_MENU,
+    song: SONGS.SHEPPER_DOG
   },
   {
-    name: 'town',
-    map: 'town',
+    name: 'Town',
+    map: MAPS.TOWN,
+    song: SONGS.APPLE_CIDER
   },
 ];
 const levelManager = new LevelManager(levels_config);

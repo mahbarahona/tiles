@@ -1,7 +1,7 @@
 import { BoundingBox, Color, Engine, Scene, Sound, Vector } from 'excalibur';
 import { Player } from '../actors/player.actor';
 import { assetManager } from '../managers/asset.manager';
-import {  SCENE_EVENTS } from '../models';
+import {  SCENE_EVENTS, SONGS } from '../models';
 import { eventBus } from '../managers/game.manager';
 import { Chicken } from '../actors/NPC/chicken.actor';
 import { Cow } from '../actors/NPC/cow.actor';
@@ -9,17 +9,20 @@ import { Cow } from '../actors/NPC/cow.actor';
 export class Level extends Scene {
   name: string;
   map_name: string;
+  song:SONGS
   map: any;
   player!: Player;
-  music!: Sound;
+  music!:Sound
+  
   constructor(config: any) {
     super();
     this.name = config.name;
     this.map_name = config.map;
+    this.song = config.song;
   }
   onInitialize(engine: Engine): void {
     this.map = assetManager.maps[this.map_name];
-    this.music = assetManager.sounds[this.map_name];
+    this.music = assetManager.sounds[this.song];
     //
     this.map.addTiledMapToScene(engine);
     const map_width = this.map.data.width * this.map.data.tileWidth;

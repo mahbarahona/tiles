@@ -44,8 +44,8 @@ class AssetManager {
   }
   private setup_sounds() {
     this.sounds = {
-      town: new Sound("/assets/music/apple_cider.Zane Little Music.ogg"),
-      mainmenu: new Sound("/assets/music/shepherd_dog.Zane Little Music.wav"),
+      apple_cider: new Sound("/assets/music/apple_cider.Zane Little Music.ogg"),
+      shepherd_dog: new Sound("/assets/music/shepherd_dog.Zane Little Music.wav"),
     };
   
     for (const key in this.sounds) {
@@ -56,8 +56,8 @@ class AssetManager {
   }
   private setup_maps() {
     this.maps = {
+      main_menu: new TiledMapResource("/maps/mainmenu.tmx"),
       town: new TiledMapResource("/maps/town.tmx"),
-      mainmenu: new TiledMapResource("/maps/mainmenu.tmx"),
     };
     for (const key in this.maps) {
       this.loader.addResource(this.maps[key]);
