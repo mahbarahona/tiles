@@ -69,6 +69,7 @@ export class Level extends Scene {
       this.player = new Player({
         x: player_tile.x,
         y: player_tile.y,
+        z:10,
         map_bounds: { right: map_width, bottom: map_height },
       });
       eventBus.emit(SCENE_EVENTS.SWITCH_TOOL, this.player.current_tool);

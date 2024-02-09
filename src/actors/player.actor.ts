@@ -206,7 +206,7 @@ export class Player extends Actor {
 
   public current_tool =
     'axe' || 'wateringcan' || 'axe' || 'pickaxe' || 'shovel' || '';
-  constructor({ x, y, map_bounds }: any) {
+  constructor({ x, y,z, map_bounds }: any) {
     if (player_instance) {
       return player_instance;
     }
@@ -215,7 +215,7 @@ export class Player extends Actor {
       name: 'Player',
       x,
       y,
-      z: 10,
+      z,
       width: 16,
       height: 16,
       collisionType: CollisionType.Active,
