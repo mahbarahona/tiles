@@ -19,9 +19,20 @@ export class Level extends Scene {
   onInitialize(engine: Engine): void {
     this.map = assetManager.maps[this.map_name];
     this.music = assetManager.sounds[this.map_name];
-    this.map.addTiledMapToScene(engine);
-
     //
+    this.map.addTiledMapToScene(engine);
+    const map_width = this.map.data.width * this.map.data.tileWidth;
+    const map_height = this.map.data.height * this.map.data.tileHeight;
+
+    this.create_chicken()
+    this.create_cows()
+    this.create_player(map_width,map_height)
+    this.setup_camera(map_width,map_height)
+
+    this.music.loop = true;
+    this.music.play();
+  }
+  private create_chicken(){
     const chicken_layer = this.map.data.getObjectLayerByName('chickens');
     if (chicken_layer) {
       chicken_layer.objects.forEach((mark: any, i: number) => {
@@ -39,6 +50,8 @@ export class Level extends Scene {
       });
     }
 
+  }
+  private create_cows(){
     const cows_layer = this.map.data.getObjectLayerByName('cows');
     if (cows_layer) {
       cows_layer.objects.forEach((mark: any, i: number) => {
@@ -54,15 +67,8 @@ export class Level extends Scene {
         this.add(cow);
       });
     }
-
-    const map_width = this.map.data.width * this.map.data.tileWidth;
-    const map_height = this.map.data.height * this.map.data.tileHeight;
-    const map_bounds = BoundingBox.fromDimension(
-      map_width,
-      map_height,
-      Vector.Zero,
-      this.map.pos
-    );
+  }
+  private create_player(map_width:number,map_height:number){
     const player_layer = this.map.data.getObjectLayerByName('player');
     if (player_layer) {
       const player_tile = player_layer.objects.find((obj: any) => obj.id === 2);
@@ -76,11 +82,14 @@ export class Level extends Scene {
       this.add(this.player);
       this.camera.strategy.lockToActor(this.player);
     }
-    //
-
-    this.music.loop = true;
-    this.music.play();
-
+  }
+  private setup_camera(map_width:number,map_height:number){
+    const map_bounds = BoundingBox.fromDimension(
+      map_width,
+      map_height,
+      Vector.Zero,
+      this.map.pos
+    );
     this.camera.strategy.limitCameraBounds(map_bounds);
     this.camera.zoom = 2;
   }

@@ -190,7 +190,6 @@ function get_animations() {
     anim_watering_can_right,
   };
 }
-let player_instance: Player | null = null;
 
 enum FACING {
   FRONT = 'FRONT',
@@ -207,9 +206,7 @@ export class Player extends Actor {
   public current_tool =
     'axe' || 'wateringcan' || 'axe' || 'pickaxe' || 'shovel' || '';
   constructor({ x, y,z, map_bounds }: any) {
-    if (player_instance) {
-      return player_instance;
-    }
+
 
     super({
       name: 'Player',
@@ -224,7 +221,6 @@ export class Player extends Actor {
     this.scale = vec(0.8, 0.8);
     this.map_bounds = map_bounds;
     this.current_tool = 'wateringcan';
-    player_instance = this;
   }
   onInitialize(): void {
     this.set_animations();
