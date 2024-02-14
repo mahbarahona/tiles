@@ -103,6 +103,12 @@ class GameManager {
   }
   go_to(scene: string) {
     console.log(`go to: ${scene}`);
+
+    switch (scene) {
+      case MAPS.MAIN_MENU:
+        this.game_state.next(GAME_STATES.READY);
+        break;
+    }
     this.game.goToScene(scene);
   }
 

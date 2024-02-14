@@ -163,8 +163,6 @@ body {
           background-repeat: no-repeat;
           width: 96px;
           height: 32px;
-          
-
           padding-bottom: .2rem;
           &:active {
             
@@ -172,6 +170,10 @@ body {
             color: var(--color-dark-choc);
             padding-bottom: 0;
             /* transform: scale(.98); */
+          }
+
+          &:hover{
+            color: var(--color-dark-choc);
           }
         }
 
@@ -406,19 +408,29 @@ body {
         #menu_window {
           display: none;
           position: absolute;
-          width: 95%;
-          height: 90%;
+          width: 35%;
+          height: 40%;
 
-          background-color: white;
-          border: 3px solid;
+          background-color: rgb(238, 232, 220);
+          border: 3px solid ;
           border-radius: var(--border-radius);
 
           .menu_header {
             /* font-weight: bold; */
-            padding: 1rem 1rem;
-            border-bottom: 3px solid;
+            padding: .5rem 1rem;;
+            border-bottom: 3px solid var(--text-color);
+            /* color: var(--color-dark-choc); */
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .close{
+              color: var(--color-dark-choc);
+            }
           }
           .menu_content {
+            padding: 1rem;
             .collectives {
               display: none;
             }
@@ -454,6 +466,37 @@ body {
             }
           }
           .menu_footer {
+          }
+
+
+          &.SETTINGS{
+
+            .settings{
+              display: block;
+
+              .setting{
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+    
+    
+                .toggle{
+                  border: 1px;
+                  background-color: transparent;
+                  background-image: url('/assets/ui/Sprite sheet for Basic Pack.png');
+                  background-position: -434px -67px;
+                  background-repeat: no-repeat;
+                  width: 32px;
+                  height: 24px;
+                  transform: scale(1);
+    
+                  &.off{
+                    background-position: -434px -99px;
+    
+                  }
+                }
+              }
+            }
           }
         }
       }

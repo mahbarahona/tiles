@@ -1,5 +1,5 @@
 import { Player } from "../actors/player.actor";
-import { MENU, PLAYER_STATE, SCENE_STATE, PLAYER_TOOLS } from "../models";
+import { MENU, PLAYER_STATE, SCENE_STATE, PLAYER_TOOLS, MAPS } from "../models";
 import { audioManager } from "./audio.manager";
 import { gameManager } from "./game.manager";
 
@@ -135,12 +135,17 @@ class UIManager {
     if (current.value === MENU.EXIT) {
       this.cancel_menu(player);
       return;
+    } else if (current.value === MENU.BACK_MAIN_MENU) {
+      gameManager.go_to(MAPS.MAIN_MENU);
     }
 
     this.menu_window.classList = current.value;
     const menu_header = this.menu_window.querySelector(".menu_header");
     menu_header.innerText = current.name;
-
+    const close = document.createElement("div");
+    close.innerText = "Esc";
+    close.classList.add("close");
+    menu_header.appendChild(close);
     this.menu_window.style.display = "block";
     this.menu_opened = true;
   }
