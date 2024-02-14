@@ -1,44 +1,53 @@
 import {
   Actor,
   Animation,
+  Collider,
+  CollisionContact,
   CollisionType,
   Engine,
   Input,
+  Side,
   SpriteSheet,
   range,
   vec,
-} from 'excalibur';
-import { assetManager } from '../managers/asset.manager';
-import { eventBus } from '../managers/game.manager';
-import { SCENE_EVENTS, PLAYER_TOOLS } from '../models';
-enum FACING {
-  FRONT = 'FRONT',
-  BACK = 'BACK',
-  LEFT = 'LEFT',
-  RIGHT = 'RIGHT',
-}
+} from "excalibur";
+import { assetManager } from "../managers/asset.manager";
+import { eventBus, gameManager } from "../managers/game.manager";
+import {
+  ACTOR_TYPE,
+  PLAYER_STATE,
+  SCENE_EVENTS,
+  SCENE_STATE,
+  PLAYER_TOOLS,
+  NPC_TYPE,
+} from "../models";
+
+import { uiManager } from "../managers/ui.manager";
+import { SceneArea } from "./Areas/scene-area.actor";
+
 const ANIM = {
-  IDLE_FRONT: 'IDLE_FRONT',
-  IDLE_LEFT: 'IDLE_LEFT',
-  IDLE_RIGHT: 'IDLE_RIGHT',
-  IDLE_BACK: 'IDLE_BACK',
-  WALK_FRONT: 'WALK_IDLE',
-  WALK_BACK: 'WALK_BACK',
-  WALK_LEFT: 'WALK_LEFT',
-  WALK_RIGHT: 'WALK_RIGHT',
-  SHOVEL_FRONT: 'SHOVEL_FRONT',
-  SHOVEL_BACK: 'SHOVEL_BACK',
-  PICKAXE_LEFT: 'PICKAXE_LEFT',
-  PICKAXE_RIGHT: 'PICKAXE_RIGHT',
-  AXE_FRONT: 'AXE_FRONT',
-  AXE_BACK: 'AXE_BACK',
-  AXE_LEFT: 'AXE_LEFT',
-  AXE_RIGHT: 'AXE_RIGHT',
-  WATERING_CAN_FRONT: 'WATERING_CAN_FRONT',
-  WATERING_CAN_BACK: 'WATERING_CAN_BACK',
-  WATERING_CAN_LEFT: 'WATERING_CAN_LEFT',
-  WATERING_CAN_RIGHT: 'WATERING_CAN_RIGHT',
+  IDLE_FRONT: "IDLE_FRONT",
+  IDLE_LEFT: "IDLE_LEFT",
+  IDLE_RIGHT: "IDLE_RIGHT",
+  IDLE_BACK: "IDLE_BACK",
+  WALK_FRONT: "WALK_IDLE",
+  WALK_BACK: "WALK_BACK",
+  WALK_LEFT: "WALK_LEFT",
+  WALK_RIGHT: "WALK_RIGHT",
+  SHOVEL_FRONT: "SHOVEL_FRONT",
+  SHOVEL_BACK: "SHOVEL_BACK",
+  PICKAXE_LEFT: "PICKAXE_LEFT",
+  PICKAXE_RIGHT: "PICKAXE_RIGHT",
+  AXE_FRONT: "AXE_FRONT",
+  AXE_BACK: "AXE_BACK",
+  AXE_LEFT: "AXE_LEFT",
+  AXE_RIGHT: "AXE_RIGHT",
+  WATERING_CAN_FRONT: "WATERING_CAN_FRONT",
+  WATERING_CAN_BACK: "WATERING_CAN_BACK",
+  WATERING_CAN_LEFT: "WATERING_CAN_LEFT",
+  WATERING_CAN_RIGHT: "WATERING_CAN_RIGHT",
 };
+
 function get_animations() {
   // sprites
   const sprite_movements = SpriteSheet.fromImageSource({
@@ -195,23 +204,28 @@ function get_animations() {
   };
 }
 
-
+enum FACING {
+  FRONT = "FRONT",
+  BACK = "BACK",
+  LEFT = "LEFT",
+  RIGHT = "RIGHT",
+}
 export class Player extends Actor {
-  private current_anim: any;
+  current_anim: any;
   private facing!: FACING;
   private map_bounds: any;
   public in_action = false;
-  walking_speed = 100;
+  public nearToNPC: any;
   public current_tool =
-    'axe' || 'wateringcan' || 'axe' || 'pickaxe' || 'shovel' || '';
-  constructor({ x, y,z, map_bounds }: any) {
+    "axe" || "wateringcan" || "axe" || "pickaxe" || "shovel" || "";
 
-
+  public player_state: PLAYER_STATE;
+  constructor({ x, y, map_bounds }: any) {
     super({
-      name: 'Player',
+      name: "Player",
       x,
       y,
-      z,
+      z: 6,
       width: 16,
       height: 16,
       collisionType: CollisionType.Active,
@@ -219,96 +233,186 @@ export class Player extends Actor {
     this.facing = FACING.FRONT;
     this.scale = vec(0.8, 0.8);
     this.map_bounds = map_bounds;
-    this.current_tool = 'wateringcan';
+    this.current_tool = "wateringcan";
+    this.player_state = PLAYER_STATE.IDLE;
   }
+
   onInitialize(): void {
     this.set_animations();
     this.set_anim(ANIM.IDLE_FRONT);
   }
   onPreUpdate(engine: Engine): void {
-    if (this.in_action) {
-      this.vel.x = 0;
-      this.vel.y = 0;
-      return;
-    }
-    //
     const keyboard = engine.input.keyboard;
-    const change_tool =
-      keyboard.wasReleased(Input.Keys.Q) ||
+
+    const pressed_space = keyboard.wasPressed(Input.Keys.Space);
+    const pressed_escape = keyboard.wasPressed(Input.Keys.Esc);
+    const pressed_enter = keyboard.wasReleased(Input.Keys.Enter);
+    const pressed_menu =
+      keyboard.wasReleased(Input.Keys.M) ||
+      pressed_enter ||
+      keyboard.wasReleased(Input.Keys.Q);
+    const released_change_tool =
       keyboard.wasReleased(Input.Keys.E) ||
       keyboard.wasReleased(Input.Keys.T) ||
       keyboard.wasReleased(Input.Keys.F);
-    if (change_tool) {
-      let nextIndex = PLAYER_TOOLS.indexOf(this.current_tool) + 1;
-      if (!PLAYER_TOOLS[nextIndex]) {
-        nextIndex = 0;
-      }
-      const next = PLAYER_TOOLS[nextIndex];
-      this.current_tool = next;
-      eventBus.emit(SCENE_EVENTS.SWITCH_TOOL, this.current_tool);
-    }
 
-    this.update_movement(engine);
-    const prev_anim = this.current_anim;
+    this.vel.x = 0;
+    this.vel.y = 0;
 
-    if (keyboard.wasReleased(Input.Keys.Space)) {
-      this.in_action = true;
-
-      switch (this.current_tool) {
-        case 'axe':
-          switch (this.facing) {
-            case FACING.BACK:
-              this.set_anim(ANIM.AXE_BACK);
-              break;
-            case FACING.FRONT:
-              this.set_anim(ANIM.AXE_FRONT);
-              break;
-
-            case FACING.LEFT:
-              this.set_anim(ANIM.AXE_LEFT);
-              break;
-
-            case FACING.RIGHT:
-              this.set_anim(ANIM.AXE_RIGHT);
-              break;
+    switch (this.player_state) {
+      case PLAYER_STATE.TALKING:
+        if (pressed_space) {
+          gameManager.continue_talking();
+        }
+        break;
+      case PLAYER_STATE.IDLE:
+        if (pressed_space) {
+          if (this.nearToNPC) {
+            this.player_state = PLAYER_STATE.TALKING;
+            gameManager.start_talk(this.nearToNPC, this);
+            return;
           }
 
-          setTimeout(() => {
-            this.set_anim(prev_anim);
-            this.in_action = false;
-          }, 300 * 4);
-          break;
-        case 'wateringcan':
-          switch (this.facing) {
-            case FACING.BACK:
-              this.set_anim(ANIM.WATERING_CAN_BACK);
-              break;
-            case FACING.FRONT:
-              this.set_anim(ANIM.WATERING_CAN_FRONT);
-              break;
+          // const prev_anim = this.current_anim;
 
-            case FACING.LEFT:
-              this.set_anim(ANIM.WATERING_CAN_LEFT);
-              break;
+          // this.in_action = true;
+          // switch (this.current_tool) {
+          //   case 'axe':
+          //     switch (this.facing) {
+          //       case FACING.BACK:
+          //         this.set_anim(ANIM.AXE_BACK);
+          //         break;
+          //       case FACING.FRONT:
+          //         this.set_anim(ANIM.AXE_FRONT);
+          //         break;
+          //       case FACING.LEFT:
+          //         this.set_anim(ANIM.AXE_LEFT);
+          //         break;
+          //       case FACING.RIGHT:
+          //         this.set_anim(ANIM.AXE_RIGHT);
+          //         break;
+          //     }
+          //     setTimeout(() => {
+          //       this.set_anim(prev_anim);
+          //       this.in_action = false;
+          //     }, 300 * 4);
+          //     break;
+          //   case 'wateringcan':
+          //     switch (this.facing) {
+          //       case FACING.BACK:
+          //         this.set_anim(ANIM.WATERING_CAN_BACK);
+          //         break;
+          //       case FACING.FRONT:
+          //         this.set_anim(ANIM.WATERING_CAN_FRONT);
+          //         break;
+          //       case FACING.LEFT:
+          //         this.set_anim(ANIM.WATERING_CAN_LEFT);
+          //         break;
+          //       case FACING.RIGHT:
+          //         this.set_anim(ANIM.WATERING_CAN_RIGHT);
+          //         break;
+          //     }
+          //     setTimeout(() => {
+          //       this.set_anim(prev_anim);
+          //       this.in_action = false;
+          //     }, 300 * 4);
+          //     break;
+          // }
+        }
 
-            case FACING.RIGHT:
-              this.set_anim(ANIM.WATERING_CAN_RIGHT);
-              break;
+        if (pressed_menu) {
+          this.player_state = PLAYER_STATE.MENU;
+          gameManager.scene_state.next(SCENE_STATE.MENU);
+          return;
+        }
+
+        this.update_movement(engine);
+
+        if (released_change_tool) {
+          let nextIndex = PLAYER_TOOLS.indexOf(this.current_tool) + 1;
+          if (!PLAYER_TOOLS[nextIndex]) {
+            nextIndex = 0;
           }
+          const next = PLAYER_TOOLS[nextIndex];
+          this.current_tool = next;
+          eventBus.emit(SCENE_EVENTS.SWITCH_TOOL, this.current_tool);
+        }
+        break;
+      case PLAYER_STATE.MENU:
+        if (pressed_escape) {
+          uiManager.cancel_menu(this);
+          return;
+        }
 
-          setTimeout(() => {
-            this.set_anim(prev_anim);
-            this.in_action = false;
-          }, 300 * 4);
-          break;
-      }
+        if (pressed_enter) {
+          uiManager.open_menu(this);
+          return;
+        }
+
+        // const isLEFT =
+        //   keyboard.wasReleased(Input.Keys.Left) ||
+        //   keyboard.wasReleased(Input.Keys.A);
+        // const isRIGHT =
+        //   keyboard.wasReleased(Input.Keys.Right) ||
+        //   keyboard.wasReleased(Input.Keys.D);
+        const isUP =
+          keyboard.wasReleased(Input.Keys.Up) ||
+          keyboard.wasReleased(Input.Keys.W);
+        const isDOWN =
+          keyboard.wasReleased(Input.Keys.Down) ||
+          keyboard.wasReleased(Input.Keys.S);
+
+        if (isUP) {
+          uiManager.menu_item_up();
+        } else if (isDOWN) {
+          uiManager.menu_item_down();
+        }
+
+        break;
+      case PLAYER_STATE.IN_ACTION:
+        this.vel.x = 0;
+        this.vel.y = 0;
+
+        break;
     }
   }
-  private set_anim(new_anim: any) {
+  // COLLISIONS
+  onPreCollisionResolve(
+    _self: Collider,
+    _other: Collider,
+    _side: Side,
+    _contact: CollisionContact
+  ): void {
+    const other: any = _other;
+    switch (other.owner.type) {
+      case ACTOR_TYPE.SCENE_NEXT:
+        const area: SceneArea | any = other.owner;
+        if (area.activated) {
+          area.activated = false;
+          gameManager.go_to(area.toScene);
+        }
+        break;
+      case NPC_TYPE.COW:
+      case NPC_TYPE.CHICKEN:
+        this.nearToNPC = other.owner;
+        break;
+    }
+  }
+  onCollisionEnd(_self: Collider, other: Collider): void {
+    switch (other.owner.name) {
+      case ACTOR_TYPE.SCENE_NEXT:
+        const area: SceneArea | any = other.owner;
+        area.activated = true;
+        break;
+    }
+  }
+
+  //
+  set_anim(new_anim: any) {
     this.current_anim = new_anim;
     this.graphics.use(new_anim);
   }
-  private set_animations() {
+  set_animations() {
     const animations = get_animations();
     this.graphics.add(ANIM.IDLE_FRONT, animations.anim_idle_front);
     this.graphics.add(ANIM.IDLE_BACK, animations.anim_idle_back);
@@ -348,8 +452,9 @@ export class Player extends Actor {
       animations.anim_watering_can_right
     );
   }
-  private update_movement(engine: Engine) {
+  update_movement(engine: Engine) {
     const keyboard = engine.input.keyboard;
+    const WALKING_SPEED = 100; // 160
     const isLEFT =
       keyboard.isHeld(Input.Keys.Left) || keyboard.isHeld(Input.Keys.A);
     const isRIGHT =
@@ -384,11 +489,11 @@ export class Player extends Actor {
     }
 
     // Normalize walking speed
-    const is_moving = this.vel.x !== 0 || this.vel.y !== 0
-    if (is_moving) {
-      this.vel = this.vel.normalize();// to normalize diagonal movement speeds
-      this.vel.x = this.vel.x * this.walking_speed;
-      this.vel.y = this.vel.y * this.walking_speed;
+    if (this.vel.x !== 0 || this.vel.y !== 0) {
+      this.nearToNPC = false;
+      this.vel = this.vel.normalize();
+      this.vel.x = this.vel.x * WALKING_SPEED;
+      this.vel.y = this.vel.y * WALKING_SPEED;
       switch (this.facing) {
         case FACING.LEFT:
           this.graphics.use(ANIM.WALK_LEFT);

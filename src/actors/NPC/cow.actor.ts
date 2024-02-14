@@ -8,7 +8,8 @@ enum COW_ANIM {
 }
 export class Cow extends Actor {
   type: NPC_TYPE;
-  constructor({ x, y, z, width, height }: any) {
+  dialog_id: string;
+  constructor({ x, y, z, width, height, dialog_id }: any) {
     super({
       x,
       y,
@@ -18,6 +19,7 @@ export class Cow extends Actor {
       collisionType: CollisionType.Fixed,
     });
     this.type = NPC_TYPE.COW;
+    this.dialog_id = dialog_id;
   }
   onInitialize(): void {
     this.setup_graphics();

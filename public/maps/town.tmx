@@ -8,6 +8,23 @@
  </tileset>
  <tileset firstgid="17" name="Grass" tilewidth="16" tileheight="16" tilecount="77" columns="11">
   <image source="tiles/Grass.png" width="176" height="112"/>
+  <wangsets>
+   <wangset name="groubd" type="corner" tile="-1">
+    <wangcolor name="grass" color="#ff0000" tile="-1" probability="1"/>
+   </wangset>
+   <wangset name="path" type="edge" tile="-1">
+    <wangcolor name="pipes" color="#ff0000" tile="-1" probability="1"/>
+    <wangtile tileid="4" wangid="0,0,1,0,1,0,0,0"/>
+    <wangtile tileid="7" wangid="0,0,0,0,1,0,1,0"/>
+    <wangtile tileid="37" wangid="1,0,1,0,0,0,0,0"/>
+    <wangtile tileid="40" wangid="1,0,0,0,0,0,1,0"/>
+    <wangtile tileid="44" wangid="1,0,0,0,1,0,0,0"/>
+    <wangtile tileid="45" wangid="0,0,1,0,0,0,1,0"/>
+    <wangtile tileid="48" wangid="1,0,1,0,1,0,0,0"/>
+    <wangtile tileid="51" wangid="1,0,0,0,1,0,1,0"/>
+    <wangtile tileid="52" wangid="1,0,1,0,1,0,1,0"/>
+   </wangset>
+  </wangsets>
  </tileset>
  <tileset firstgid="94" name="Water" tilewidth="16" tileheight="16" tilecount="4" columns="4">
   <image source="tiles/Water.png" width="64" height="16"/>
@@ -330,7 +347,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="4" name="player" visible="0" locked="1">
+ <objectgroup id="4" name="player" locked="1">
   <object id="1" x="422" y="280">
    <point/>
   </object>
@@ -344,7 +361,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="19" name="chickens" visible="0" locked="1">
+ <objectgroup id="19" name="chickens" locked="1">
   <object id="5" x="583.333" y="345.333">
    <point/>
   </object>
@@ -396,6 +413,9 @@
    <point/>
   </object>
   <object id="23" x="536" y="280.5">
+   <properties>
+    <property name="dialog_id" value="MOZART"/>
+   </properties>
    <point/>
   </object>
   <object id="24" x="410" y="251.5">

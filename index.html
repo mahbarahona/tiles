@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="shortcut icon" type="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Excalibur Farm</title>
+    <title>Excali Farm</title>
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div id="game" class="LOADING">
       <canvas id="main-canvas" class="gradient-background"></canvas>
-      <div id="ui">
+      <div id="ui" class="noselect">
         <div class="main_menu">
           <button class="btn_play" id="btn_play"></button>
         </div>
@@ -20,7 +20,30 @@
               <div class="bunny idle"></div>
             </div>
           </div>
-          <div id="tools_container" class="tools"></div>
+
+          <div id="tools_container" class="tools" style="display: none"></div>
+        </div>
+        <div class="talking" id="dialog_container">
+          <div class="avatar"></div>
+          <div class="content">
+            <div class="text"></div>
+          </div>
+        </div>
+
+        <div class="player_menu">
+          <div class="menu">
+            <ul id="menu_items_container"></ul>
+          </div>
+          <div id="menu_window">
+            <div class="menu_header"></div>
+            <div class="menu_content">
+              <div class="collectives"></div>
+              <div class="items"></div>
+              <div class="map"></div>
+              <div class="settings"></div>
+            </div>
+            <div class="menu_footer"></div>
+          </div>
         </div>
       </div>
     </div>

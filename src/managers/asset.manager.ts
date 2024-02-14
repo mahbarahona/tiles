@@ -45,9 +45,11 @@ class AssetManager {
   private setup_sounds() {
     this.sounds = {
       apple_cider: new Sound("/assets/music/apple_cider.Zane Little Music.ogg"),
-      shepherd_dog: new Sound("/assets/music/shepherd_dog.Zane Little Music.wav"),
+      shepperd_dog: new Sound(
+        "/assets/music/shepherd_dog.Zane Little Music.wav"
+      ),
     };
-  
+
     for (const key in this.sounds) {
       const sound = this.sounds[key];
       this.loader.addResource(sound);
