@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="54" height="27" tilewidth="16" tileheight="16" infinite="0" nextlayerid="30" nextobjectid="65">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="54" height="27" tilewidth="16" tileheight="16" infinite="0" nextlayerid="30" nextobjectid="66">
  <editorsettings>
   <export target="003.tmj" format="json"/>
  </editorsettings>
@@ -268,6 +268,9 @@
  </layer>
  <objectgroup id="4" name="player">
   <object id="32" x="840.375" y="113.208">
+   <point/>
+  </object>
+  <object id="65" x="86.375" y="26.2083">
    <point/>
   </object>
  </objectgroup>

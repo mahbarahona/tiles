@@ -54,6 +54,9 @@ class UIManager {
     this.btn_play.onclick = () => gameManager.start_game();
 
     this.setting_music_buttons.forEach((btn: any) => {
+      if (audioManager.mute) {
+        btn.classList.add("off");
+      }
       btn.onclick = () => {
         audioManager.toggleMute();
         if (audioManager.mute) {

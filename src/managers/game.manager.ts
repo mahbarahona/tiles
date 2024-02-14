@@ -17,6 +17,7 @@ import { dialogManager } from "./dialog.manager";
 import { Player } from "../actors/player.actor";
 import { Chicken } from "../actors/NPC/chicken.actor";
 import { Cow } from "../actors/NPC/cow.actor";
+import { dataManager } from "./data.manager";
 
 class GameManager {
   game!: Engine;
@@ -30,11 +31,12 @@ class GameManager {
     this.scene_state = new Subject();
   }
   init() {
+    dataManager.init();
+    audioManager.init();
     assetManager.init();
     levelManager.init();
     uiManager.init();
     dialogManager.init();
-    audioManager.init();
     //
     levelManager.load_levels(this.game);
 
@@ -46,11 +48,6 @@ class GameManager {
       console.log(`[${new_game_state}]`);
       switch (new_game_state) {
         case GAME_STATES.LOADING:
-          assetManager.init();
-          levelManager.init();
-
-          audioManager.init();
-          uiManager.init();
           this.game.start(assetManager.loader).then(() => {
             this.game_state.next(GAME_STATES.READY);
           });
@@ -92,14 +89,15 @@ class GameManager {
 
       uiManager.update_state(new_scene_state);
     });
-
     this.game_state.next(GAME_STATES.LOADING);
   }
   start_game() {
     audioManager.play_bg(SONGS.APPLE_CIDER);
-    this.game.goToScene(MAPS.INDOOR_PLAYER_HOUSE);
     this.game_state.next(GAME_STATES.PLAYING);
+
+    this.game.goToScene(MAPS.INDOOR_PLAYER_HOUSE);
   }
+
   go_to(scene: string) {
     console.log(`go to: ${scene}`);
 
@@ -108,6 +106,7 @@ class GameManager {
         this.game_state.next(GAME_STATES.READY);
         break;
       default:
+        dataManager.set_current_map(scene);
         this.game.goToScene(scene);
         break;
     }

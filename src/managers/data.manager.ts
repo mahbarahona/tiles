@@ -1,25 +1,44 @@
-interface gameData {}
+import { MAPS } from "../models";
+
 class Datamanager {
-  data = {
-    first_time: false,
-    current_map: "",
-    collectable: [],
-    inventory: [],
-    map: {
-      cities: [],
-    },
-    preferences: {
-      music: true,
-    },
-  };
+  private store_key = "EXCALI";
+  data: any;
   init() {
     this.load();
   }
-
-  load() {
-    //
+  private defaultData() {
+    return {
+      first_time: false,
+      current_map: "",
+      collectable: [],
+      inventory: [],
+      map: {
+        cities: [],
+      },
+      preferences: {
+        mute: false,
+      },
+    };
   }
-  save() {}
+  load() {
+    const local_data = JSON.parse(localStorage.getItem(this.store_key) || "");
+    this.data = local_data || this.defaultData();
+  }
+  save() {
+    this.data.ts = Date.now();
+    const serialized = JSON.stringify(this.data);
+    localStorage.setItem(this.store_key, serialized);
+  }
+  set_current_map(map: MAPS | string) {
+    this.data.current_map = map;
+    this.save();
+  }
+  set_music_pref(pref: boolean) {
+    this.data.preferences = {
+      mute: pref,
+    };
+    this.save();
+  }
 }
 
-const dataManager = new Datamanager();
+export const dataManager = new Datamanager();

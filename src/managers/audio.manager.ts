@@ -1,11 +1,14 @@
 import { Sound } from "excalibur";
 import { assetManager } from "./asset.manager";
 import { SONGS } from "../models";
+import { dataManager } from "./data.manager";
 
 class AudioManager {
   bg_music!: Sound;
   mute = false;
-  init() {}
+  init() {
+    this.mute = dataManager.data.preferences.mute;
+  }
 
   play_bg(song_name: SONGS, loop = true) {
     if (this.bg_music) {
@@ -21,7 +24,7 @@ class AudioManager {
   }
   toggleMute() {
     this.mute = !this.mute;
-
+    dataManager.set_music_pref(this.mute);
     if (this.mute) {
       this.bg_music.volume = 0;
     } else {
