@@ -29,6 +29,16 @@ const levels_config = [
     song: SONGS.APPLE_CIDER,
   },
   {
+    name: "INDOOR_FIXED_HOUSE",
+    map: MAPS.INDOOR_FIXED_HOUSE,
+    song: SONGS.APPLE_CIDER,
+  },
+  {
+    name: "INDOOR_WORKOHOLIC_HOUSE",
+    map: MAPS.INDOOR_WORKOHOLIC_HOUSE,
+    song: SONGS.APPLE_CIDER,
+  },
+  {
     name: "Farm",
     map: MAPS.FARM,
     song: SONGS.APPLE_CIDER,

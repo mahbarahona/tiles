@@ -63,6 +63,10 @@ class AssetManager {
       indoor_player_house: new TiledMapResource(
         "/maps/indoor_player_house.tmx"
       ),
+      indoor_fixed_house: new TiledMapResource("/maps/indoor_fixed_house.tmx"),
+      indoor_workoholic_house: new TiledMapResource(
+        "/maps/indoor_workoholic_house.tmx"
+      ),
       town: new TiledMapResource("/maps/town.tmx"),
     };
     for (const key in this.maps) {
