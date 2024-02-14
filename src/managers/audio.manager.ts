@@ -19,5 +19,14 @@ class AudioManager {
   pause_bg() {
     this.bg_music.stop();
   }
+  toggleMute() {
+    this.mute = !this.mute;
+
+    if (this.mute) {
+      this.bg_music.volume = 0;
+    } else {
+      this.bg_music.volume = 0.5;
+    }
+  }
 }
 export const audioManager = new AudioManager();

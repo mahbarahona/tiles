@@ -22,6 +22,7 @@ export enum MENU {
   ITEMS = "ITEMS",
   MAP = "MAP",
   SETTINGS = "SETTINGS",
+  BACK_MAIN_MENU = "BACK_MAIN_MENU",
   EXIT = "EXIT",
 }
 export enum SCENE_STATE {

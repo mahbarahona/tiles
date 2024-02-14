@@ -1,5 +1,6 @@
 import { Player } from "../actors/player.actor";
 import { MENU, PLAYER_STATE, SCENE_STATE, PLAYER_TOOLS } from "../models";
+import { audioManager } from "./audio.manager";
 import { gameManager } from "./game.manager";
 
 class UIManager {
@@ -28,13 +29,17 @@ class UIManager {
       value: MENU.SETTINGS,
     },
     {
+      name: "Back to Main Menu",
+      value: MENU.BACK_MAIN_MENU,
+    },
+    {
       name: "Exit",
       value: MENU.EXIT,
     },
   ];
   menu_opened = false;
   current_menu_item = 0;
-
+  setting_music_buttons: any;
   constructor() {
     this.game_container = document.getElementById("game");
     this.btn_play = document.getElementById("btn_play");
@@ -42,10 +47,22 @@ class UIManager {
     this.dialog_container = document.getElementById("dialog_container");
     this.menu_items_container = document.getElementById("menu_items_container");
     this.menu_window = document.getElementById("menu_window");
+    this.setting_music_buttons = document.querySelectorAll(".btn_toggle_music");
   }
 
   init() {
     this.btn_play.onclick = () => gameManager.start_game();
+
+    this.setting_music_buttons.forEach((btn: any) => {
+      btn.onclick = () => {
+        audioManager.toggleMute();
+        if (audioManager.mute) {
+          btn.classList.add("off");
+        } else {
+          btn.classList.remove("off");
+        }
+      };
+    });
     this.update_menu();
   }
   update_state(state: SCENE_STATE | "DONE") {
@@ -84,6 +101,7 @@ class UIManager {
   }
   update_menu() {
     this.menu_items_container.innerHTML = "";
+    console.log(this.menu_items);
     this.menu_items.forEach((item, i) => {
       const li = document.createElement("li");
       li.classList.add("menu_item");
