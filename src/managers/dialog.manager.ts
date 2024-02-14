@@ -25,8 +25,7 @@ export function get_dialog_id(arr: any) {
   let dialog_type = arr.properties.find(
     (prop: any) => prop.name === TILED_OBJECT_PROPS.DIALOG_ID
   );
-
-  if (!dialog_type) return "DEFAULT";
+  if (!dialog_type || !dialog_type.value) return "DEFAULT";
 
   return dialog_type.value;
 }
@@ -49,6 +48,7 @@ class DialogManager {
     this.talk();
   }
   find_dialog(scene_dialogues: any, dialog_id: string) {
+    console.log(scene_dialogues, dialog_id);
     let dialog = scene_dialogues.find((d: any) => d.id === dialog_id);
 
     if (!dialog) {

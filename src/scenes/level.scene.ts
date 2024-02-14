@@ -1,11 +1,19 @@
 import { BoundingBox, Color, Engine, Scene, Sound, Vector } from "excalibur";
 import { Player } from "../actors/player.actor";
 import { assetManager } from "../managers/asset.manager";
-import { NPC_TYPE, SCENE_EVENTS, SONGS } from "../models";
+import {
+  ACTOR_TYPE,
+  NPC_TYPE,
+  SCENE_EVENTS,
+  SONGS,
+  TILED_OBJECT,
+  TILED_OBJECT_PROPS,
+} from "../models";
 import { eventBus } from "../managers/game.manager";
 import { Chicken } from "../actors/NPC/chicken.actor";
 import { Cow } from "../actors/NPC/cow.actor";
 import { get_dialog_id } from "../managers/dialog.manager";
+import { SceneArea } from "../actors/Areas/scene-area.actor";
 
 export class Level extends Scene {
   name: string;
@@ -24,23 +32,45 @@ export class Level extends Scene {
     this.dialogues = config.dialogues;
   }
   onInitialize(engine: Engine): void {
+    this.backgroundColor = Color.Black;
     this.map = assetManager.maps[this.map_name];
-    // this.music = assetManager.sounds[this.song];
-    //
     this.map.addTiledMapToScene(engine);
     const map_width = this.map.data.width * this.map.data.tileWidth;
     const map_height = this.map.data.height * this.map.data.tileHeight;
 
+    this.create_scene_areas();
     this.create_chickens();
     this.create_cows();
     this.create_player(map_width, map_height);
     this.setup_camera(map_width, map_height);
-
-    // this.music.loop = true;
-    // this.music.play();
   }
   onDeactivate(): void {
     // this.music.stop();
+  }
+  private create_scene_areas() {
+    //
+    const switch_scene_area = this.map.data.getObjectLayerByName(
+      TILED_OBJECT.SCENE_AREA
+    );
+    if (switch_scene_area) {
+      switch_scene_area.objects.forEach((zone: any) => {
+        //
+        const scene = zone.properties.find(
+          (prop: any) => prop.name === TILED_OBJECT_PROPS.SCENE
+        );
+        // console.log({ scene });
+        const newZone = new SceneArea({
+          x: zone.x + zone.width / 2,
+          y: zone.y + zone.height / 2,
+          name: ACTOR_TYPE.SCENE_NEXT,
+          width: zone.width,
+          height: zone.height,
+          toScene: scene.value,
+          // color: Color.Green,
+        });
+        this.add(newZone);
+      });
+    }
   }
   private create_chickens() {
     const chicken_layer = this.map.data.getObjectLayerByName("chickens");
@@ -82,11 +112,12 @@ export class Level extends Scene {
   private create_player(map_width: number, map_height: number) {
     const player_layer = this.map.data.getObjectLayerByName("player");
     if (player_layer) {
-      const player_tile = player_layer.objects.find((obj: any) => obj.id === 2);
+      const player_tile = player_layer.objects[0];
+      // console.log(player_tile.objects);
       this.player = new Player({
         x: player_tile.x,
         y: player_tile.y,
-        z: 10,
+        z: 20,
         map_bounds: { right: map_width, bottom: map_height },
       });
       eventBus.emit(SCENE_EVENTS.SWITCH_TOOL, this.player.current_tool);

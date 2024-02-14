@@ -21,6 +21,9 @@ body {
   padding: 1rem 1rem;
 
   font-family: monospace;
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 
   display: flex;
   flex-direction: column;
@@ -254,37 +257,31 @@ body {
 
         display: flex;
         width: 90%;
-        height: 120px;
+        height: 100px;
         /* background-color: darkred; */
 
-        border-radius: var(--border-radius);
         overflow: hidden;
+        border: 10px double black;
+        border-radius: var(--border-radius);
+        background-color: rgb(57 178 159);
 
-        background-color: wheat;
-
-        .avatar {
-          background-color: #333;
-          flex-basis: 20%;
-
-          &.player {
-            order: -1;
-          }
-          &.npc {
-            order: 3;
-          }
-        }
         .content {
-          flex-basis: 80%;
-          padding: 1rem;
+          background-color: white;
+          flex-basis: 100%;
           .text {
-            background-color: white;
-            border-radius: calc(var(--border-radius) / 2);
+  
+            font-size: 1.2rem;
+    
             height: 100%;
             padding: 1rem;
             word-wrap: break-word;
-             
+             position: relative;
             &::after{
+              
               content: '▼';
+              position: absolute;
+              bottom: 1rem;
+              right: 1rem;
               -webkit-animation:jello-vertical .9s both;animation:jello-vertical .9s both
             }
             &.last::after{

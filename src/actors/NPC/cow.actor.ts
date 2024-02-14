@@ -1,6 +1,6 @@
 import { Actor, Animation, CollisionType, SpriteSheet, range } from "excalibur";
 import { assetManager } from "../../managers/asset.manager";
-import { NPC_TYPE } from "../../models";
+import { ACTOR_TYPE, NPC_TYPE } from "../../models";
 
 enum COW_ANIM {
   IDLE = "COW_IDLE",
@@ -16,6 +16,7 @@ export class Cow extends Actor {
       z,
       width,
       height,
+      name: ACTOR_TYPE.NPC,
       collisionType: CollisionType.Fixed,
     });
     this.type = NPC_TYPE.COW;

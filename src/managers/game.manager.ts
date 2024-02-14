@@ -98,7 +98,7 @@ class GameManager {
   }
   start_game() {
     audioManager.play_bg(SONGS.APPLE_CIDER);
-    this.game.goToScene(MAPS.TOWN);
+    this.game.goToScene(MAPS.INDOOR_PLAYER_HOUSE);
     this.game_state.next(GAME_STATES.PLAYING);
   }
   go_to(scene: string) {

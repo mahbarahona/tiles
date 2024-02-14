@@ -19,7 +19,6 @@ import {
   SCENE_EVENTS,
   SCENE_STATE,
   PLAYER_TOOLS,
-  NPC_TYPE,
 } from "../models";
 
 import { uiManager } from "../managers/ui.manager";
@@ -235,6 +234,7 @@ export class Player extends Actor {
     this.map_bounds = map_bounds;
     this.current_tool = "wateringcan";
     this.player_state = PLAYER_STATE.IDLE;
+    this.scale = vec(0.8, 0.8);
   }
 
   onInitialize(): void {
@@ -384,7 +384,7 @@ export class Player extends Actor {
     _contact: CollisionContact
   ): void {
     const other: any = _other;
-    switch (other.owner.type) {
+    switch (other.owner.name) {
       case ACTOR_TYPE.SCENE_NEXT:
         const area: SceneArea | any = other.owner;
         if (area.activated) {
@@ -392,12 +392,12 @@ export class Player extends Actor {
           gameManager.go_to(area.toScene);
         }
         break;
-      case NPC_TYPE.COW:
-      case NPC_TYPE.CHICKEN:
+      case ACTOR_TYPE.NPC:
         this.nearToNPC = other.owner;
         break;
     }
   }
+
   onCollisionEnd(_self: Collider, other: Collider): void {
     switch (other.owner.name) {
       case ACTOR_TYPE.SCENE_NEXT:

@@ -24,8 +24,13 @@ const levels_config = [
     song: SONGS.SHEPPERD_DOG,
   },
   {
-    name: "Town",
-    map: MAPS.TOWN,
+    name: "player house",
+    map: MAPS.INDOOR_PLAYER_HOUSE,
+    song: SONGS.APPLE_CIDER,
+  },
+  {
+    name: "Farm",
+    map: MAPS.FARM,
     song: SONGS.APPLE_CIDER,
     dialogues: [
       {
@@ -74,6 +79,54 @@ const levels_config = [
         ],
       },
       {
+        id: `${NPC_TYPE.CHICKEN}_REBEL`,
+        dialogues: [
+          {
+            text: "WHAT DO U WANT !!!",
+          },
+          {
+            text: "sorry buddy...",
+          },
+          {
+            text: "I'm just trying to get some air.",
+          },
+          {
+            text: "Let me tell u something...",
+          },
+          {
+            text: "if u have any change,",
+          },
+          {
+            text: "Leave this place.",
+          },
+        ],
+      },
+      {
+        id: `${NPC_TYPE.CHICKEN}_HAPPY`,
+        dialogues: [
+          {
+            text: "this place is the BEST!",
+          },
+          {
+            text: "By the way, The farm increase his revenue in a 6%.",
+          },
+          {
+            text: "we have to be grateful.",
+          },
+        ],
+      },
+      {
+        id: `${NPC_TYPE.CHICKEN}_RESIGNADO`,
+        dialogues: [
+          {
+            text: "Dont worry u will get used to",
+          },
+          {
+            text: "Always have been this way.",
+          },
+        ],
+      },
+      {
         id: `${NPC_TYPE.CHICKEN}_CONSPIRACY`,
         dialogues: [
           {
@@ -100,6 +153,12 @@ const levels_config = [
         ],
       },
     ],
+  },
+  {
+    name: "Town",
+    map: MAPS.TOWN,
+    song: SONGS.APPLE_CIDER,
+    dialogies: [],
   },
 ];
 const levelManager = new LevelManager(levels_config);

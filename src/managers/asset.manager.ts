@@ -58,7 +58,11 @@ class AssetManager {
   }
   private setup_maps() {
     this.maps = {
-      main_menu: new TiledMapResource("/maps/mainmenu.tmx"),
+      main_menu: new TiledMapResource("/maps/main_menu.tmx"),
+      farm: new TiledMapResource("/maps/farm.tmx"),
+      indoor_player_house: new TiledMapResource(
+        "/maps/indoor_player_house.tmx"
+      ),
       town: new TiledMapResource("/maps/town.tmx"),
     };
     for (const key in this.maps) {

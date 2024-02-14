@@ -62,6 +62,8 @@ export enum TILED_OBJECT_PROPS {
 
 export enum MAPS {
   MAIN_MENU = "main_menu",
+  FARM = "farm",
+  INDOOR_PLAYER_HOUSE = "indoor_player_house",
   TOWN = "town",
 }
 

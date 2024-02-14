@@ -67,12 +67,12 @@ class UIManager {
   }
 
   display_dialog(
-    actor: "player" | "npc" = "player",
+    _actor: "player" | "npc" = "player",
     text: string,
     last = false
   ) {
-    const avatar = this.dialog_container.querySelector(".avatar");
-    avatar.classList.add(actor);
+    // const avatar = this.dialog_container.querySelector(".avatar");
+    // avatar.classList.add(actor);
 
     const text_container = this.dialog_container.querySelector(".text");
     text_container.classList.remove("last");
