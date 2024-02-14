@@ -65,6 +65,8 @@ export enum MAPS {
   MAIN_MENU = "main_menu",
   FARM = "farm",
   TOWN = "town",
+  PORT = "port",
+  FOREST = "forest",
   INDOOR_PLAYER_HOUSE = "indoor_player_house",
   INDOOR_FIXED_HOUSE = "indoor_fixed_house",
   INDOOR_WORKOHOLIC_HOUSE = "indoor_workoholic_house",

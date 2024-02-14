@@ -59,7 +59,6 @@ class GameManager {
           this.game.goToScene(MAPS.MAIN_MENU);
           uiManager.update_state(SCENE_STATE.READY);
           audioManager.play_bg(SONGS.SHEPPERD_DOG);
-
           break;
         case GAME_STATES.PLAYING:
           uiManager.update_state(SCENE_STATE.PLAYING);
@@ -108,8 +107,10 @@ class GameManager {
       case MAPS.MAIN_MENU:
         this.game_state.next(GAME_STATES.READY);
         break;
+      default:
+        this.game.goToScene(scene);
+        break;
     }
-    this.game.goToScene(scene);
   }
 
   start_talk(npc: Chicken | Cow, player: Player) {

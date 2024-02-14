@@ -170,6 +170,18 @@ const levels_config = [
     song: SONGS.APPLE_CIDER,
     dialogies: [],
   },
+  {
+    name: "Forest",
+    map: MAPS.FOREST,
+    song: SONGS.APPLE_CIDER,
+    dialogies: [],
+  },
+  {
+    name: "Port",
+    map: MAPS.PORT,
+    song: SONGS.APPLE_CIDER,
+    dialogies: [],
+  },
 ];
 const levelManager = new LevelManager(levels_config);
 

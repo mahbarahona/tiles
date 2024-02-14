@@ -101,15 +101,17 @@ class UIManager {
   }
   update_menu() {
     this.menu_items_container.innerHTML = "";
-    console.log(this.menu_items);
     this.menu_items.forEach((item, i) => {
-      const li = document.createElement("li");
-      li.classList.add("menu_item");
-      li.innerText = item.name;
+      const btn = document.createElement("button");
+      btn.classList.add("menu_item");
+      btn.name = item.value;
+      btn.innerText = item.name;
       if (i === this.current_menu_item) {
-        li.classList.add("active");
+        btn.classList.add("active");
       }
-      this.menu_items_container.appendChild(li);
+      btn.onclick = () => {};
+
+      this.menu_items_container.appendChild(btn);
     });
   }
   menu_item_down() {
@@ -149,6 +151,7 @@ class UIManager {
     this.menu_window.style.display = "block";
     this.menu_opened = true;
   }
+
   close_submenu() {
     this.menu_window.style.display = "none";
     this.menu_opened = false;

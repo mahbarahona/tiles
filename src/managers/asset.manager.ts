@@ -68,6 +68,8 @@ class AssetManager {
         "/maps/indoor_workoholic_house.tmx"
       ),
       town: new TiledMapResource("/maps/town.tmx"),
+      forest: new TiledMapResource("/maps/forest.tmx"),
+      port: new TiledMapResource("/maps/port.tmx"),
     };
     for (const key in this.maps) {
       this.loader.addResource(this.maps[key]);

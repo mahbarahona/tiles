@@ -376,14 +376,15 @@ body {
           overflow: hidden;
 
           background-color: wheat;
-          padding: 1rem;
+          padding: .5rem .5rem;
+          
           ul {
             width: 100%;
             /* padding-left: 1rem; */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            li {
+            .menu_item {
               padding: 0.5rem 0;
               list-style: none;
               border-bottom: 1px solid gray;
@@ -398,7 +399,9 @@ body {
                 }
                 /* font-weight: bold; */
               }
-
+              &:hover{
+                color: var(--color-dark-choc);
+              }
               &:nth-last-child(1) {
                 border-bottom: 0;
               }
