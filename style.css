@@ -209,7 +209,7 @@ body {
   &.SCENE_STATE__PLAYING {
     #ui {
       display: flex;
-      pointer-events: none;
+      /* pointer-events: none; */
       background-color: transparent;
 
       .playing {
@@ -242,6 +242,26 @@ body {
               transform: scale(0.5);
             }
           }
+
+
+        }
+        #menu_icon{
+          font-family: var(--font-pixel-2);
+          z-index: 10;
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+
+          display: flex;
+          align-items: center;
+          width: 180px;
+          height: 32px;
+          background-color: wheat;
+          background-color: rgb(238, 232, 220);
+          border-radius: calc( var(--border-radius)/1);
+          border: 3px solid var(--text-color);
+          padding: .5rem .5rem;
+          color: var(--color-dark-choc);
         }
         .tools {
           position: absolute;
@@ -352,7 +372,11 @@ body {
   &.SCENE_STATE_MENU {
     #ui {
       display: flex;
-
+      .menu_close{
+        font-family: var(--font-pixel-2);
+        width: 48px;
+        text-align: right;
+      }
       .player_menu {
         display: flex;
         width: 100%;
@@ -377,11 +401,13 @@ body {
           overflow: hidden;
 
           background-color: wheat;
+          background-color: rgb(238, 232, 220);
+          
           padding: .5rem .5rem;
           
 
           .menu_header{
-            font-family: monospace;
+            /* font-family: monospace; */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -389,9 +415,7 @@ body {
             padding-bottom: .3rem;
             color: var(--color-dark-choc);
 
-            .close{
-              font-family: var(--font-pixel-2);
-            }
+
           }
           ul {
             width: 100%;
@@ -410,11 +434,11 @@ body {
 
               &.active {
                 /* list-style: circle; */
-
-                /* color:var(--color-dark-choc); */
+                /* font-weight: bold; */
+                color:var(--color-dark-choc);
                 &::before{
                   font-family: monospace;
-                  content:'▶ ';
+                  /* content:'▶ '; */
                 }
                 /* font-weight: bold; */
               }
@@ -432,6 +456,7 @@ body {
         #menu_window {
           display: none;
           position: absolute;
+          left: 30%;
           width: 35%;
           height: 40%;
 

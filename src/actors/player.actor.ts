@@ -345,7 +345,7 @@ export class Player extends Actor {
         }
 
         if (pressed_enter) {
-          uiManager.open_menu();
+          uiManager.open_submenu();
           return;
         }
 
@@ -355,18 +355,18 @@ export class Player extends Actor {
         // const isRIGHT =
         //   keyboard.wasReleased(Input.Keys.Right) ||
         //   keyboard.wasReleased(Input.Keys.D);
-        const isUP =
-          keyboard.wasReleased(Input.Keys.Up) ||
-          keyboard.wasReleased(Input.Keys.W);
-        const isDOWN =
-          keyboard.wasReleased(Input.Keys.Down) ||
-          keyboard.wasReleased(Input.Keys.S);
+        // const isUP =
+        //   keyboard.wasReleased(Input.Keys.Up) ||
+        //   keyboard.wasReleased(Input.Keys.W);
+        // const isDOWN =
+        //   keyboard.wasReleased(Input.Keys.Down) ||
+        //   keyboard.wasReleased(Input.Keys.S);
 
-        if (isUP) {
-          uiManager.menu_item_up();
-        } else if (isDOWN) {
-          uiManager.menu_item_down();
-        }
+        // if (isUP) {
+        //   uiManager.menu_item_up();
+        // } else if (isDOWN) {
+        //   uiManager.menu_item_down();
+        // }
 
         break;
       case PLAYER_STATE.IN_ACTION:

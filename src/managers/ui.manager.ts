@@ -7,9 +7,13 @@ class UIManager {
   btn_play: any;
   tools_container: any;
   dialog_container: any;
+  //
   menu_items_container: any;
   menu_window: any;
-
+  menu_icon: any;
+  menu_opened = false;
+  menu_close_btn: any;
+  current_menu_item = -1;
   menu_items = [
     // {
     //   name: "Collectives",
@@ -36,8 +40,7 @@ class UIManager {
     //   value: MENU.EXIT,
     // },
   ];
-  menu_opened = false;
-  current_menu_item = 0;
+
   setting_music_buttons: any;
   constructor() {
     this.game_container = document.getElementById("game");
@@ -46,12 +49,22 @@ class UIManager {
     this.dialog_container = document.getElementById("dialog_container");
     this.menu_items_container = document.getElementById("menu_items_container");
     this.menu_window = document.getElementById("menu_window");
+    this.menu_icon = document.getElementById("menu_icon");
     this.setting_music_buttons = document.querySelectorAll(".btn_toggle_music");
+    this.menu_close_btn = document.querySelectorAll(".menu_close");
   }
 
   init() {
     this.btn_play.onclick = () => gameManager.start_game();
-
+    this.menu_icon.onclick = () => {
+      gameManager.scene_state.next(SCENE_STATE.MENU);
+      // this.open_menu();
+    };
+    this.menu_close_btn.forEach((btn: any) => {
+      btn.onclick = () => {
+        this.cancel_menu();
+      };
+    });
     this.setting_music_buttons.forEach((btn: any) => {
       if (audioManager.mute) {
         btn.classList.add("off");
@@ -111,11 +124,13 @@ class UIManager {
       btn.innerText = item.name;
       if (i === this.current_menu_item) {
         btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
       }
       btn.onclick = () => {
         this.current_menu_item = Number(btn.name);
         this.update_menu();
-        this.open_menu();
+        this.open_submenu();
       };
 
       this.menu_items_container.appendChild(btn);
@@ -139,7 +154,7 @@ class UIManager {
   }
 
   //
-  open_menu() {
+  open_submenu() {
     const current = this.menu_items[this.current_menu_item];
     if (current.value === MENU.EXIT) {
       this.cancel_menu();
@@ -157,27 +172,32 @@ class UIManager {
     menu_header.innerText = current.name;
     const closeDiv = document.createElement("div");
     closeDiv.innerText = "x";
-    closeDiv.classList.add("close");
-    closeDiv.onclick = () => this.close_submenu();
+    closeDiv.classList.add("menu_close");
+    closeDiv.onclick = () => this.cancel_menu();
 
     menu_header.appendChild(closeDiv);
     this.menu_window.style.display = "block";
     this.menu_opened = true;
   }
+  close_menu() {
+    console.log("close");
+    gameManager.player.set_state(PLAYER_STATE.IDLE);
+    gameManager.scene_state.next(SCENE_STATE.PLAYING);
+    this.current_menu_item = -1;
+  }
   cancel_menu() {
+    console.log("cancel");
     if (this.menu_opened) {
       this.close_submenu();
     } else {
-      // close
-      gameManager.player.set_state(PLAYER_STATE.IDLE);
-      gameManager.scene_state.next(SCENE_STATE.PLAYING);
-      this.current_menu_item = 0;
-      this.update_menu();
+      this.close_menu();
     }
+    this.update_menu();
   }
   close_submenu() {
     this.menu_window.style.display = "none";
     this.menu_opened = false;
+    this.current_menu_item = -1;
   }
 }
 

@@ -80,6 +80,9 @@ class GameManager {
           break;
         case SCENE_STATE.PAUSED:
           break;
+        case SCENE_STATE.MENU:
+          this.player.set_state(PLAYER_STATE.MENU);
+          break;
         case SCENE_STATE.COMPLETED:
           break;
         case SCENE_STATE.GAMEOVER:
