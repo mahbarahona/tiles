@@ -16,18 +16,18 @@ class UIManager {
   menu_close_btn: any;
   current_menu_item = -1;
   menu_items = [
-    {
-      name: "Collectives",
-      value: MENU.COLLECTIVES,
-    },
-    {
-      name: "Items",
-      value: MENU.ITEMS,
-    },
-    {
-      name: "Map",
-      value: MENU.MAP,
-    },
+    // {
+    //   name: "Collectives",
+    //   value: MENU.COLLECTIVES,
+    // },
+    // {
+    //   name: "Items",
+    //   value: MENU.ITEMS,
+    // },
+    // {
+    //   name: "Map",
+    //   value: MENU.MAP,
+    // },
     {
       name: "Settings",
       value: MENU.SETTINGS,

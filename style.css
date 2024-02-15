@@ -12,6 +12,10 @@
 --cursor: url('/assets/ui/Triangle Mouse icon 1.png'), auto;
 
 
+--color-wood:#e8cfa6;
+--color-wood-dark:#a08262;
+--color-wood-dark:#745e46;
+
 --font-pixel-1:  "VT323", monospace;
 --font-pixel-2:  "Pixelify Sans", sans-serif;
 }
@@ -32,15 +36,111 @@ body {
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
 
-  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  /* background: linear-gradient(145deg, #cacaca, #f0f0f0);
 
   background-image: radial-gradient(
     var(--color-primary) 0.5px,
     var(--bg-color) 0.5px
   );
-  background-size: 10px 10px;
+  background-size: 10px 10px; */
+}
+#controls{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .7rem;
+  border-bottom: 1px solid gray ;
+  width: 600px;
+  padding: 1rem 0;
+  transform: scale(1.2);
+  .row{
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+
+    .col{
+      display: flex;
+      flex-direction: column;
+      gap: 0rem;
+    }
+  }
+  .control{
+    display: flex;
+    gap: .1rem;
+
+    .key{
+      /* border: 1px solid; */
+      background-color: transparent;
+      background-repeat: no-repeat;
+      background-image:url('/assets/ui/gdb-keyboard.png');;
+      background-position: 0px 0px;
+      width: 16px;
+      height: 16px;
+      
+      &.space{
+        background-position: -100px -96px;
+        width: 106px;
+        &.active{
+          background-position-y: -208px;
+        }
+      }
+      &.m{
+        background-position: -160px -80px;
+        &.active{
+          background-position-y: -192px;
+        }
+      }
+      &.esc{
+        background-position: -32px -16px;
+        /* width: 106px; */
+        &.active{
+          background-position-y: -128px;
+        }
+      }
+
+      &.up{
+        background-position: -320px -80px;
+        &.active{
+          background-position-y: -192px;
+        }
+      }
+      &.down{
+        background-position: -320px -96px;
+        &.active{
+          background-position-y: -208px;
+        }
+      }
+      &.left{
+        background-position: -304px -96px;
+        &.active{
+          background-position-y: -208px;
+        }
+      }
+      &.right{
+        background-position: -336px -96px;
+        &.active{
+          background-position-y: -208px;
+        }
+      }
+
+    }
+
+    &.movement{
+      align-items: flex-end;
+       gap: 0;
+      .grid{
+        display: flex;
+        flex-wrap: wrap;
+        width: 50px;
+      }
+    }
+  }
+
+  
 }
 #credits {
   display: flex;

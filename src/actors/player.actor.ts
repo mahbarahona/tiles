@@ -246,11 +246,8 @@ export class Player extends Actor {
 
     const pressed_space = keyboard.wasPressed(Input.Keys.Space);
     const pressed_escape = keyboard.wasPressed(Input.Keys.Esc);
-    const pressed_enter = keyboard.wasReleased(Input.Keys.Enter);
+    // const pressed_enter = keyboard.wasReleased(Input.Keys.Enter);
     const pressed_menu = keyboard.wasReleased(Input.Keys.M);
-    // keyboard.wasReleased(Input.Keys.M) ||
-    // pressed_enter ||
-    // keyboard.wasReleased(Input.Keys.Q);
     const released_change_tool =
       keyboard.wasReleased(Input.Keys.E) ||
       keyboard.wasReleased(Input.Keys.T) ||
@@ -349,7 +346,7 @@ export class Player extends Actor {
           return;
         }
 
-        if (pressed_enter) {
+        if (pressed_space) {
           uiManager.open_submenu();
           return;
         }
