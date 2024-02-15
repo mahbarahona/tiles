@@ -218,7 +218,7 @@ export class Player extends Actor {
   public current_tool =
     "axe" || "wateringcan" || "axe" || "pickaxe" || "shovel" || "";
 
-  public player_state: PLAYER_STATE;
+  public player_state!: PLAYER_STATE;
   constructor({ x, y, map_bounds }: any) {
     super({
       name: "Player",
@@ -233,7 +233,7 @@ export class Player extends Actor {
     this.scale = vec(0.8, 0.8);
     this.map_bounds = map_bounds;
     this.current_tool = "wateringcan";
-    this.player_state = PLAYER_STATE.IDLE;
+    this.set_state(PLAYER_STATE.IDLE);
     this.scale = vec(0.8, 0.8);
   }
 
@@ -268,8 +268,8 @@ export class Player extends Actor {
       case PLAYER_STATE.IDLE:
         if (pressed_space) {
           if (this.nearToNPC) {
-            this.player_state = PLAYER_STATE.TALKING;
-            gameManager.start_talk(this.nearToNPC, this);
+            this.set_state(PLAYER_STATE.TALKING);
+            gameManager.start_talk(this.nearToNPC);
             return;
           }
 
@@ -321,7 +321,7 @@ export class Player extends Actor {
         }
 
         if (pressed_menu) {
-          this.player_state = PLAYER_STATE.MENU;
+          this.set_state(PLAYER_STATE.MENU);
           gameManager.scene_state.next(SCENE_STATE.MENU);
           return;
         }
@@ -340,12 +340,12 @@ export class Player extends Actor {
         break;
       case PLAYER_STATE.MENU:
         if (pressed_escape) {
-          uiManager.cancel_menu(this);
+          uiManager.cancel_menu();
           return;
         }
 
         if (pressed_enter) {
-          uiManager.open_menu(this);
+          uiManager.open_menu();
           return;
         }
 
@@ -397,7 +397,6 @@ export class Player extends Actor {
         break;
     }
   }
-
   onCollisionEnd(_self: Collider, other: Collider): void {
     switch (other.owner.name) {
       case ACTOR_TYPE.SCENE_NEXT:
@@ -408,11 +407,11 @@ export class Player extends Actor {
   }
 
   //
-  set_anim(new_anim: any) {
+  private set_anim(new_anim: any) {
     this.current_anim = new_anim;
     this.graphics.use(new_anim);
   }
-  set_animations() {
+  private set_animations() {
     const animations = get_animations();
     this.graphics.add(ANIM.IDLE_FRONT, animations.anim_idle_front);
     this.graphics.add(ANIM.IDLE_BACK, animations.anim_idle_back);
@@ -452,7 +451,7 @@ export class Player extends Actor {
       animations.anim_watering_can_right
     );
   }
-  update_movement(engine: Engine) {
+  private update_movement(engine: Engine) {
     const keyboard = engine.input.keyboard;
     const WALKING_SPEED = 100; // 160
     const isLEFT =
@@ -524,5 +523,10 @@ export class Player extends Actor {
           break;
       }
     }
+  }
+
+  set_state(new_state: PLAYER_STATE) {
+    this.player_state = new_state;
+    gameManager.player = this;
   }
 }

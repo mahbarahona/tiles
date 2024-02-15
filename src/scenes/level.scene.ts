@@ -4,6 +4,7 @@ import { assetManager } from "../managers/asset.manager";
 import {
   ACTOR_TYPE,
   NPC_TYPE,
+  PLAYER_STATE,
   SCENE_EVENTS,
   SONGS,
   TILED_OBJECT,
@@ -20,7 +21,9 @@ export class Level extends Scene {
   map_name: string;
   song: SONGS;
   map: any;
-  player!: Player;
+  player?: Player;
+  player_initial_pos: any;
+  player_last_pos: any;
   music!: Sound;
   areas: any;
   dialogues = [];
@@ -32,6 +35,12 @@ export class Level extends Scene {
     this.dialogues = config.dialogues;
   }
   onInitialize(engine: Engine): void {
+    this.init(engine);
+  }
+  onDeactivate(): void {
+    this.player?.set_state(PLAYER_STATE.IDLE);
+  }
+  init(engine: Engine) {
     this.backgroundColor = Color.Black;
     this.map = assetManager.maps[this.map_name];
     this.map.addTiledMapToScene(engine);
@@ -44,9 +53,13 @@ export class Level extends Scene {
     this.create_player(map_width, map_height);
     this.setup_camera(map_width, map_height);
   }
-  onDeactivate(): void {
-    // this.music.stop();
+  reset() {
+    if (this.player && this.player_initial_pos) {
+      this.player.pos.x = this.player_initial_pos.x;
+      this.player.pos.y = this.player_initial_pos.y;
+    }
   }
+  //
   private create_scene_areas() {
     //
     const switch_scene_area = this.map.data.getObjectLayerByName(
@@ -112,11 +125,10 @@ export class Level extends Scene {
   private create_player(map_width: number, map_height: number) {
     const player_layer = this.map.data.getObjectLayerByName("player");
     if (player_layer) {
-      const player_tile = player_layer.objects[0];
-      // console.log(player_tile.objects);
+      this.player_initial_pos = player_layer.objects[0];
       this.player = new Player({
-        x: player_tile.x,
-        y: player_tile.y,
+        x: this.player_initial_pos.x,
+        y: this.player_initial_pos.y,
         z: 20,
         map_bounds: { right: map_width, bottom: map_height },
       });

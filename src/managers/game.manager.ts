@@ -25,6 +25,7 @@ class GameManager {
   scene_state!: Subject;
 
   player!: Player;
+
   constructor(engine: Engine) {
     this.game = engine;
     this.game_state = new Subject();
@@ -94,15 +95,15 @@ class GameManager {
   start_game() {
     audioManager.play_bg(SONGS.APPLE_CIDER);
     this.game_state.next(GAME_STATES.PLAYING);
-
     this.game.goToScene(MAPS.INDOOR_PLAYER_HOUSE);
   }
 
   go_to(scene: string) {
     console.log(`go to: ${scene}`);
-
     switch (scene) {
       case MAPS.MAIN_MENU:
+        //
+        levelManager.reset_levels();
         this.game_state.next(GAME_STATES.READY);
         break;
       default:
@@ -112,9 +113,7 @@ class GameManager {
     }
   }
 
-  start_talk(npc: Chicken | Cow, player: Player) {
-    this.player = player;
-
+  start_talk(npc: Chicken | Cow) {
     this.scene_state.next(SCENE_STATE.TALKING);
     const { dialogues }: any = game.currentScene;
     dialogManager.start(dialogues, npc.dialog_id);
@@ -123,7 +122,7 @@ class GameManager {
     dialogManager.continue();
   }
   stop_talking() {
-    this.player.player_state = PLAYER_STATE.IDLE;
+    this.player.set_state(PLAYER_STATE.IDLE);
     this.scene_state.next(SCENE_STATE.PLAYING);
   }
 }
@@ -149,6 +148,7 @@ const options: EngineOptions = {
   height: 400,
   canvasElementId: "main-canvas",
   backgroundColor: Color.Transparent,
+  suppressConsoleBootMessage: true,
 };
 //
 const game = new Engine(options);

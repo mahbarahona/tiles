@@ -16,6 +16,11 @@ class LevelManager {
       game.add(lvl.map_name, lvl);
     }
   }
+  reset_levels() {
+    for (const lvl of this.levels) {
+      lvl.reset();
+    }
+  }
 }
 const levels_config = [
   {
