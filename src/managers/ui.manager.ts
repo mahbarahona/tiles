@@ -11,22 +11,23 @@ class UIManager {
   menu_items_container: any;
   menu_window: any;
   menu_icon: any;
+  menu_ingame: any;
   menu_opened = false;
   menu_close_btn: any;
   current_menu_item = -1;
   menu_items = [
-    // {
-    //   name: "Collectives",
-    //   value: MENU.COLLECTIVES,
-    // },
-    // {
-    //   name: "Items",
-    //   value: MENU.ITEMS,
-    // },
-    // {
-    //   name: "Map",
-    //   value: MENU.MAP,
-    // },
+    {
+      name: "Collectives",
+      value: MENU.COLLECTIVES,
+    },
+    {
+      name: "Items",
+      value: MENU.ITEMS,
+    },
+    {
+      name: "Map",
+      value: MENU.MAP,
+    },
     {
       name: "Settings",
       value: MENU.SETTINGS,
@@ -47,18 +48,24 @@ class UIManager {
     this.btn_play = document.getElementById("btn_play");
     this.tools_container = document.getElementById("tools_container");
     this.dialog_container = document.getElementById("dialog_container");
+    //
+    this.setting_music_buttons = document.querySelectorAll(".btn_toggle_music");
+    //
     this.menu_items_container = document.getElementById("menu_items_container");
+    this.menu_ingame = document.getElementById("menu_ingame");
     this.menu_window = document.getElementById("menu_window");
     this.menu_icon = document.getElementById("menu_icon");
-    this.setting_music_buttons = document.querySelectorAll(".btn_toggle_music");
     this.menu_close_btn = document.querySelectorAll(".menu_close");
   }
 
   init() {
     this.btn_play.onclick = () => gameManager.start_game();
+    const menu_header = this.menu_ingame.querySelector(".menu_header");
+    menu_header.onclick = () => {
+      this.close_menu();
+    };
     this.menu_icon.onclick = () => {
       gameManager.scene_state.next(SCENE_STATE.MENU);
-      // this.open_menu();
     };
     this.menu_close_btn.forEach((btn: any) => {
       btn.onclick = () => {
@@ -180,7 +187,7 @@ class UIManager {
     this.menu_opened = true;
   }
   close_menu() {
-    console.log("close");
+    this.close_submenu();
     gameManager.player.set_state(PLAYER_STATE.IDLE);
     gameManager.scene_state.next(SCENE_STATE.PLAYING);
     this.current_menu_item = -1;

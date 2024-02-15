@@ -37,11 +37,14 @@
         </div>
         <div class="playing">
           <div class="header">
-            <div class="avatar">
+            <!-- <div class="avatar">
               <div class="bunny idle"></div>
-            </div>
+            </div> -->
           </div>
-          <div id="menu_icon" class="menu_icon">Menu</div>
+          <div id="menu_icon" class="menu_icon">
+            <p>Menu</p>
+            <div>▼</div>
+          </div>
           <div id="tools_container" class="tools" style="display: none"></div>
         </div>
         <div class="talking" id="dialog_container">
@@ -52,14 +55,14 @@
         </div>
 
         <div class="player_menu">
-          <div class="menu">
+          <div id="menu_ingame" class="menu">
             <div class="menu_header">
               <p>Menu</p>
-              <div class="menu_close">x</div>
+              <div class="menu_close">▲</div>
             </div>
             <ul id="menu_items_container"></ul>
           </div>
-          <div id="menu_window">
+          <div id="menu_window" class="submenu">
             <div class="menu_header"></div>
             <div class="menu_content">
               <div class="collectives"></div>

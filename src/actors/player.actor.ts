@@ -247,10 +247,10 @@ export class Player extends Actor {
     const pressed_space = keyboard.wasPressed(Input.Keys.Space);
     const pressed_escape = keyboard.wasPressed(Input.Keys.Esc);
     const pressed_enter = keyboard.wasReleased(Input.Keys.Enter);
-    const pressed_menu =
-      keyboard.wasReleased(Input.Keys.M) ||
-      pressed_enter ||
-      keyboard.wasReleased(Input.Keys.Q);
+    const pressed_menu = keyboard.wasReleased(Input.Keys.M);
+    // keyboard.wasReleased(Input.Keys.M) ||
+    // pressed_enter ||
+    // keyboard.wasReleased(Input.Keys.Q);
     const released_change_tool =
       keyboard.wasReleased(Input.Keys.E) ||
       keyboard.wasReleased(Input.Keys.T) ||
@@ -343,6 +343,11 @@ export class Player extends Actor {
           uiManager.cancel_menu();
           return;
         }
+        if (pressed_menu) {
+          this.set_state(PLAYER_STATE.IDLE);
+          gameManager.scene_state.next(SCENE_STATE.PLAYING);
+          return;
+        }
 
         if (pressed_enter) {
           uiManager.open_submenu();
@@ -355,18 +360,18 @@ export class Player extends Actor {
         // const isRIGHT =
         //   keyboard.wasReleased(Input.Keys.Right) ||
         //   keyboard.wasReleased(Input.Keys.D);
-        // const isUP =
-        //   keyboard.wasReleased(Input.Keys.Up) ||
-        //   keyboard.wasReleased(Input.Keys.W);
-        // const isDOWN =
-        //   keyboard.wasReleased(Input.Keys.Down) ||
-        //   keyboard.wasReleased(Input.Keys.S);
+        const isUP =
+          keyboard.wasReleased(Input.Keys.Up) ||
+          keyboard.wasReleased(Input.Keys.W);
+        const isDOWN =
+          keyboard.wasReleased(Input.Keys.Down) ||
+          keyboard.wasReleased(Input.Keys.S);
 
-        // if (isUP) {
-        //   uiManager.menu_item_up();
-        // } else if (isDOWN) {
-        //   uiManager.menu_item_down();
-        // }
+        if (isUP) {
+          uiManager.menu_item_up();
+        } else if (isDOWN) {
+          uiManager.menu_item_down();
+        }
 
         break;
       case PLAYER_STATE.IN_ACTION:

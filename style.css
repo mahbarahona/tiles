@@ -254,6 +254,7 @@ body {
 
           display: flex;
           align-items: center;
+          justify-content: space-between;
           width: 180px;
           height: 32px;
           background-color: wheat;
@@ -431,24 +432,35 @@ body {
               padding: 0.5rem 0;
               list-style: none;
               border-bottom: 1px solid rgba(0,0,0,0.1);
-
+              transition: all .3s ease-in-out;
               &.active {
                 /* list-style: circle; */
-                /* font-weight: bold; */
+                font-weight: bold;
                 color:var(--color-dark-choc);
                 &::before{
                   font-family: monospace;
-                  /* content:'▶ '; */
+                  content:'▶ ';
                 }
                 /* font-weight: bold; */
               }
               &:hover{
                 color: var(--color-dark-choc);
+                text-decoration: underline;
+
+                &::before{
+                  /* content:'▶ '; */
+                }
               }
               &:nth-last-child(1) {
                 border-bottom: 0;
                 text-align: right;
                 color: gray;
+    
+
+                &:hover{
+                  opacity: .7;
+
+                }
               }
             }
           }
