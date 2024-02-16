@@ -48,7 +48,198 @@ class UIManager {
   ];
 
   setting_music_buttons: any;
-  constructor() {
+  init() {
+    // templates
+    this.create_template_credits();
+    this.create_template_game_controls();
+    this.create_template_main_menu();
+    this.create_template_playing();
+    this.create_template_dialog();
+    this.create_template_menu_in_game();
+    // linker
+    this.link_template_references();
+    // inits
+    this.init_main_menu();
+    this.init_menu();
+    this.init_settings();
+    this.init_keyboard_feedback();
+  }
+
+  // templates
+  private create_template_main_menu() {
+    const main_menu_container: any = document.getElementById("main_menu");
+    main_menu_container.innerHTML = `
+    <div id="game_slots">
+    <div class="slot_header">
+      <h2>Slots</h2>
+      <div class="close-slots">x</div>
+    </div>
+    <div class="slots"></div>
+  </div>
+  <div class="buttons" id="buttons">
+    <button class="btn_main_menu" id="btn_play">New Game</button>
+  </div>
+  <div class="settings">
+    <div class="setting">
+      <p>Music</p>
+      <button class="toggle btn_toggle_music"></button>
+    </div>
+    <!-- <div class="setting">
+      <p>Language</p>
+      <button class="toggle btn_toggle_music"></button>
+    </div> -->
+  </div>
+    `;
+  }
+  private create_template_playing() {
+    const playing_container: any = document.getElementById("playing");
+    playing_container.innerHTML = `
+        <div class="header"></div>
+        <div id="menu_icon" class="menu_icon">
+            <p>Menu</p>
+            <div>▼</div>
+         </div>
+        <div id="tools_container" class="tools" style="display: none"></div>
+    `;
+  }
+  private create_template_dialog() {
+    const dialog_container: any = document.getElementById("dialog_container");
+    dialog_container.innerHTML = `
+    <div class="avatar"></div>
+          <div class="content">
+            <div class="text"></div>
+          </div>
+    `;
+  }
+  private create_template_menu_in_game() {
+    const menu_in_game: any = document.getElementById("menu_in_game");
+    menu_in_game.innerHTML = `
+    <div id="menu_ingame" class="menu">
+    <div class="menu_header">
+      <p>Menu</p>
+      <div class="menu_close">▲</div>
+    </div>
+    <ul id="menu_items_container"></ul>
+  </div>
+  <div id="menu_window" class="submenu">
+    <div class="menu_header"></div>
+    <div class="menu_content">
+      <div class="collectives"></div>
+      <div class="items"></div>
+      <div class="map"></div>
+      <div class="settings">
+        <div class="setting">
+          <p>Music</p>
+          <button class="toggle btn_toggle_music"></button>
+        </div>
+      </div>
+    </div>
+    <div class="menu_footer"></div>
+  </div>
+    `;
+  }
+  private create_template_credits() {
+    const credit_container: any = document.getElementById("credits");
+    credit_container.innerHTML = `
+      <details>
+      <summary>💖 Credits</summary>
+      <div class="content">
+        <div>
+          <div class="type">Code:</div>
+          <ul>
+            <li>
+              <a href="https://github.com/mahbarahona/tiles" target="_blank">
+                code
+              </a>
+              by
+              <a href="https://www.linkedin.com/in/manuhb-dev/">ManuHB</a>
+            </li>
+          </ul>
+        </div>
+        <br />
+        <div>
+          <p class="type">Sprites:</p>
+  
+          <ul>
+            <li>
+              "Sprout Lands" by
+              <a href="https://cupnooble.itch.io/" target="_blank">
+                Cup Nooble
+              </a>
+            </li>
+            <li>
+              "Gamepad UI / Controller Prompts Pack" by
+              <a href="https://greatdocbrown.itch.io/" target="_blank">
+                GreatDocBrown
+              </a>
+            </li>
+            <!--  -->
+          </ul>
+        </div>
+        <br />
+        <div class="row">
+          <div>
+            <p class="type">Music:</p>
+            <ul>
+              <li>
+                "Apple Cider" by
+                <a
+                  href="https://opengameart.org/content/apple-cider"
+                  target="_blank"
+                >
+                  Zane Little Music</a
+                >
+              </li>
+              <li>
+                "Shepherd Dog" by
+                <a
+                  href="https://opengameart.org/content/shepherd-dog-day-13"
+                  target="_blank"
+                >
+                  Zane Little Music</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+      `;
+  }
+  private create_template_game_controls() {
+    const game_controls_container: any = document.getElementById("controls");
+    game_controls_container.innerHTML = `
+      <div class="row">
+      <div class="row">
+        <div class="control">
+          <div class="key esc"></div>
+          <div class="desc">cancel</div>
+        </div>
+        <div class="control">
+          <div class="key m"></div>
+          <div class="desc">menu</div>
+        </div>
+      </div>
+      <div class="control movement">
+        <div class="grid">
+          <div class="key"></div>
+          <div class="key up"></div>
+          <div class="key"></div>
+          <div class="key left"></div>
+          <div class="key down"></div>
+          <div class="key right"></div>
+        </div>
+        <div class="desc">movement</div>
+      </div>
+    </div>
+    <div class="control">
+      <div class="key space"></div>
+      <div class="desc">action</div>
+    </div>
+      `;
+  }
+  // link template
+  private link_template_references() {
     this.game_container = document.getElementById("game");
     this.game_slots_container = document.getElementById("game_slots");
     //
@@ -68,13 +259,7 @@ class UIManager {
     this.tools_container = document.getElementById("tools_container");
     this.dialog_container = document.getElementById("dialog_container");
   }
-
-  init() {
-    this.init_main_menu();
-    this.init_menu();
-    this.init_settings();
-    this.init_keyboard_feedback();
-  }
+  // inits
   update_state(state: SCENE_STATE) {
     this.game_container.className = state;
   }
@@ -253,6 +438,7 @@ class UIManager {
       };
     });
   }
+
   update_settings() {
     this.setting_music_buttons.forEach((btn: any) => {
       if (dataManager.data.preferences.mute) {

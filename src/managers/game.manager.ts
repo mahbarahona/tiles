@@ -55,7 +55,6 @@ class GameManager {
           break;
         case GAME_STATES.READY:
           this.game.goToScene(MAPS.MAIN_MENU);
-          uiManager.init_main_menu();
           uiManager.update_state(SCENE_STATE.READY);
           audioManager.play_bg(SONGS.SHEPPERD_DOG);
           break;

@@ -15,180 +15,23 @@
       href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div id="game" class="LOADING">
+      <!-- GAME -->
       <canvas id="main-canvas" class="gradient-background"></canvas>
+      <!-- UI -->
       <div id="ui" class="noselect">
-        <!--  -->
-        <div class="main_menu">
-          <div id="game_slots">
-            <div class="slot_header">
-              <h2>Slots</h2>
-              <div class="close-slots">x</div>
-            </div>
-
-            <div class="slots"></div>
-          </div>
-          <div class="buttons" id="buttons">
-            <button class="btn_main_menu" id="btn_play">New Game</button>
-          </div>
-          <div class="settings">
-            <div class="setting">
-              <p>Music</p>
-              <button class="toggle btn_toggle_music"></button>
-            </div>
-            <!-- <div class="setting">
-              <p>Language</p>
-              <button class="toggle btn_toggle_music"></button>
-            </div> -->
-          </div>
-        </div>
-        <!--  -->
-        <div class="playing">
-          <div class="header">
-            <!-- <div class="avatar">
-              <div class="bunny idle"></div>
-            </div> -->
-          </div>
-          <div id="menu_icon" class="menu_icon">
-            <p>Menu</p>
-            <div>▼</div>
-          </div>
-          <div id="tools_container" class="tools" style="display: none"></div>
-        </div>
-        <!--  -->
-        <div class="talking" id="dialog_container">
-          <div class="avatar"></div>
-          <div class="content">
-            <div class="text"></div>
-          </div>
-        </div>
-        <!--  -->
-        <div class="player_menu">
-          <div id="menu_ingame" class="menu">
-            <div class="menu_header">
-              <p>Menu</p>
-              <div class="menu_close">▲</div>
-            </div>
-            <ul id="menu_items_container"></ul>
-          </div>
-          <div id="menu_window" class="submenu">
-            <div class="menu_header"></div>
-            <div class="menu_content">
-              <div class="collectives"></div>
-              <div class="items"></div>
-              <div class="map"></div>
-              <div class="settings">
-                <div class="setting">
-                  <p>Music</p>
-                  <button class="toggle btn_toggle_music"></button>
-                </div>
-              </div>
-            </div>
-            <div class="menu_footer"></div>
-          </div>
-        </div>
+        <div class="main_menu" id="main_menu"></div>
+        <div class="playing" id="playing"></div>
+        <div class="talking" id="dialog_container"></div>
+        <div class="player_menu" id="menu_in_game"></div>
       </div>
     </div>
-
-    <div id="controls">
-      <div class="row">
-        <div class="row">
-          <div class="control">
-            <div class="key esc"></div>
-            <div class="desc">cancel</div>
-          </div>
-          <div class="control">
-            <div class="key m"></div>
-            <div class="desc">menu</div>
-          </div>
-        </div>
-        <div class="control movement">
-          <div class="grid">
-            <div class="key"></div>
-            <div class="key up"></div>
-            <div class="key"></div>
-            <div class="key left"></div>
-            <div class="key down"></div>
-            <div class="key right"></div>
-          </div>
-          <div class="desc">movement</div>
-        </div>
-      </div>
-      <div class="control">
-        <div class="key space"></div>
-        <div class="desc">action</div>
-      </div>
-    </div>
-
-    <div id="credits">
-      <details>
-        <summary>💖 Credits</summary>
-        <div class="content">
-          <div>
-            <div class="type">Code:</div>
-            <ul>
-              <li>
-                <a href="https://github.com/mahbarahona/tiles" target="_blank">
-                  code
-                </a>
-                by
-                <a href="https://www.linkedin.com/in/manuhb-dev/">ManuHB</a>
-              </li>
-            </ul>
-          </div>
-          <br />
-          <div>
-            <p class="type">Sprites:</p>
-
-            <ul>
-              <li>
-                "Sprout Lands" by
-                <a href="https://cupnooble.itch.io/" target="_blank">
-                  Cup Nooble
-                </a>
-              </li>
-              <li>
-                "Gamepad UI / Controller Prompts Pack" by
-                <a href="https://greatdocbrown.itch.io/" target="_blank">
-                  GreatDocBrown
-                </a>
-              </li>
-              <!--  -->
-            </ul>
-          </div>
-          <br />
-          <div class="row">
-            <div>
-              <p class="type">Music:</p>
-              <ul>
-                <li>
-                  "Apple Cider" by
-                  <a
-                    href="https://opengameart.org/content/apple-cider"
-                    target="_blank"
-                  >
-                    Zane Little Music</a
-                  >
-                </li>
-                <li>
-                  "Shepherd Dog" by
-                  <a
-                    href="https://opengameart.org/content/shepherd-dog-day-13"
-                    target="_blank"
-                  >
-                    Zane Little Music</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </details>
-    </div>
+    <!--  -->
+    <div id="controls"></div>
+    <div id="credits"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
