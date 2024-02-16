@@ -76,3 +76,8 @@ export enum SONGS {
   APPLE_CIDER = "apple_cider",
   SHEPPERD_DOG = "shepperd_dog",
 }
+
+export enum LANGUAGES {
+  ENGLISH = "en",
+  SPANISH = "es",
+}

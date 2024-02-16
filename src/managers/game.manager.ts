@@ -18,6 +18,7 @@ import { Player } from "../actors/player.actor";
 import { Chicken } from "../actors/NPC/chicken.actor";
 import { Cow } from "../actors/NPC/cow.actor";
 import { dataManager } from "./data.manager";
+import { textManager } from "./text.manager";
 
 class GameManager {
   game!: Engine;
@@ -36,8 +37,10 @@ class GameManager {
     audioManager.init();
     assetManager.init();
     levelManager.init();
-    uiManager.init();
     dialogManager.init();
+    textManager.init();
+
+    uiManager.init();
     //
     levelManager.load_levels(this.game);
 
