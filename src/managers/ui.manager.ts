@@ -73,9 +73,81 @@ class UIManager {
     this.init_main_menu();
     this.init_menu();
     this.init_settings();
+    this.init_keyboard_feedback();
   }
   update_state(state: SCENE_STATE) {
     this.game_container.className = state;
+  }
+  private init_keyboard_feedback() {
+    const key_m: any = document.querySelector(".key.m");
+    const key_esc: any = document.querySelector(".key.esc");
+    const key_space: any = document.querySelector(".key.space");
+    const key_up: any = document.querySelector(".key.up");
+    const key_down: any = document.querySelector(".key.down");
+    const key_left: any = document.querySelector(".key.left");
+    const key_right: any = document.querySelector(".key.right");
+
+    document.addEventListener("keyup", (e) => {
+      switch (e.code) {
+        case "KeyM":
+          key_m.classList.remove("active");
+          break;
+        case "Escape":
+          key_esc.classList.remove("active");
+          break;
+        case "Space":
+          key_space.classList.remove("active");
+          break;
+        //
+        case "ArrowUp":
+        case "KeyW":
+          key_up.classList.remove("active");
+          break;
+        case "ArrowDown":
+        case "KeyS":
+          key_down.classList.remove("active");
+          break;
+        case "ArrowLeft":
+        case "KeyA":
+          key_left.classList.remove("active");
+          break;
+        case "ArrowRight":
+        case "KeyD":
+          key_right.classList.remove("active");
+          break;
+      }
+    });
+    document.addEventListener("keydown", (e) => {
+      switch (e.code) {
+        case "KeyM":
+          key_m.classList.add("active");
+          break;
+        case "Escape":
+          key_esc.classList.add("active");
+          break;
+        case "Space":
+          key_space.classList.add("active");
+          break;
+        //
+        case "ArrowUp":
+        case "KeyW":
+          key_up.classList.add("active");
+          break;
+        case "ArrowDown":
+        case "KeyS":
+          key_down.classList.add("active");
+          break;
+        case "ArrowLeft":
+        case "KeyA":
+          key_left.classList.add("active");
+          break;
+        case "ArrowRight":
+        case "KeyD":
+          key_right.classList.add("active");
+          break;
+        //
+      }
+    });
   }
   private init_menu() {
     //
@@ -97,16 +169,18 @@ class UIManager {
   init_main_menu() {
     this.hide_slots();
     this.btn_play.onclick = () => this.show_slots();
-
-    // check slots
+    this.update_btn_play();
+  }
+  private update_btn_play() {
     const slots = dataManager.data.slots.filter((s: any) => Boolean(s.data));
     const have_slots = slots.length > 0;
 
     if (have_slots) {
       this.btn_play.innerText = "Continue";
+    } else {
+      this.btn_play.innerText = "New Game";
     }
   }
-
   private create_slots() {
     const slots_container = this.game_slots_container.querySelector(".slots");
     slots_container.innerHTML = "";
@@ -159,6 +233,7 @@ class UIManager {
     this.game_slots_container.style.display = "flex";
   }
   private hide_slots() {
+    this.update_btn_play();
     this.game_slots_container.style.display = "none";
   }
   private format_slot_date(ts: number) {
