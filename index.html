@@ -22,19 +22,31 @@
     <div id="game" class="LOADING">
       <canvas id="main-canvas" class="gradient-background"></canvas>
       <div id="ui" class="noselect">
+        <!--  -->
         <div class="main_menu">
-          <!-- <button class="btn_play" id="btn_continue">Continue</button> -->
-          <button class="btn_play" id="btn_play">Start game</button>
-          <!-- <button class="btn_play" id="btn_settings">Settings</button> -->
+          <div id="game_slots">
+            <div class="slot_header">
+              <h2>Slots</h2>
+              <div class="close-slots">x</div>
+            </div>
 
+            <div class="slots"></div>
+          </div>
+          <div class="buttons" id="buttons">
+            <button class="btn_main_menu" id="btn_play">New Game</button>
+          </div>
           <div class="settings">
             <div class="setting">
               <p>Music</p>
               <button class="toggle btn_toggle_music"></button>
             </div>
+            <!-- <div class="setting">
+              <p>Language</p>
+              <button class="toggle btn_toggle_music"></button>
+            </div> -->
           </div>
-          <div id="new_game"></div>
         </div>
+        <!--  -->
         <div class="playing">
           <div class="header">
             <!-- <div class="avatar">
@@ -47,13 +59,14 @@
           </div>
           <div id="tools_container" class="tools" style="display: none"></div>
         </div>
+        <!--  -->
         <div class="talking" id="dialog_container">
           <div class="avatar"></div>
           <div class="content">
             <div class="text"></div>
           </div>
         </div>
-
+        <!--  -->
         <div class="player_menu">
           <div id="menu_ingame" class="menu">
             <div class="menu_header">
@@ -217,7 +230,6 @@
         }
       });
       document.addEventListener("keydown", (e) => {
-        console.log(e.code);
         switch (e.code) {
           case "KeyM":
             key_m.classList.add("active");

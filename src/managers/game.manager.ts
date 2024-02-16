@@ -55,6 +55,7 @@ class GameManager {
           break;
         case GAME_STATES.READY:
           this.game.goToScene(MAPS.MAIN_MENU);
+          uiManager.init_main_menu();
           uiManager.update_state(SCENE_STATE.READY);
           audioManager.play_bg(SONGS.SHEPPERD_DOG);
           break;
@@ -95,17 +96,21 @@ class GameManager {
     });
     this.game_state.next(GAME_STATES.LOADING);
   }
-  start_game() {
+  start_game(slot_id: number) {
+    dataManager.set_slot(slot_id);
+    // TODO: send to checkpoint based on data
+    // TODO: get music from scene
+
     audioManager.play_bg(SONGS.APPLE_CIDER);
     this.game_state.next(GAME_STATES.PLAYING);
-    this.game.goToScene(MAPS.INDOOR_PLAYER_HOUSE);
+    this.go_to(MAPS.INDOOR_PLAYER_HOUSE);
   }
 
   go_to(scene: string) {
     console.log(`go to: ${scene}`);
+
     switch (scene) {
       case MAPS.MAIN_MENU:
-        //
         levelManager.reset_levels();
         this.game_state.next(GAME_STATES.READY);
         break;
@@ -115,7 +120,7 @@ class GameManager {
         break;
     }
   }
-
+  // dialogues
   start_talk(npc: Chicken | Cow) {
     this.scene_state.next(SCENE_STATE.TALKING);
     const { dialogues }: any = game.currentScene;
