@@ -159,6 +159,7 @@ const options: EngineOptions = {
   canvasElementId: "main-canvas",
   backgroundColor: Color.Transparent,
   suppressConsoleBootMessage: true,
+  antialiasing: false,
 };
 //
 const game = new Engine(options);

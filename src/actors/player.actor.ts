@@ -224,7 +224,7 @@ export class Player extends Actor {
       name: "Player",
       x,
       y,
-      z: 6,
+      z: 5,
       width: 16,
       height: 16,
       collisionType: CollisionType.Active,

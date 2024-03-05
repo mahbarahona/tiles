@@ -129,7 +129,6 @@ export class Level extends Scene {
       this.player = new Player({
         x: this.player_initial_pos.x,
         y: this.player_initial_pos.y,
-        z: 20,
         map_bounds: { right: map_width, bottom: map_height },
       });
       eventBus.emit(SCENE_EVENTS.SWITCH_TOOL, this.player.current_tool);
